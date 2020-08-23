@@ -2,6 +2,18 @@
 
 namespace App\Providers;
 
+use App\Models\BlogCategory;
+use App\Models\BlogComment;
+use App\Models\BlogPost;
+use App\Models\Page;
+use App\Models\Tag;
+use App\Models\User;
+use App\Observers\BlogCategoryObserver;
+use App\Observers\BlogCommentObserver;
+use App\Observers\BlogPostObserver;
+use App\Observers\PageObserver;
+use App\Observers\TagObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +35,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // TODO при массовом сидинге тестовых данных глушим обсерверы!
+        BlogPost::observe(BlogPostObserver::class);
+        BlogCategory::observe(BlogCategoryObserver::class);
+        BlogComment::observe(BlogCommentObserver::class);
+        User::observe(UserObserver::class);
+        Tag::observe(TagObserver::class);
+        Page::observe(PageObserver::class);
     }
 }

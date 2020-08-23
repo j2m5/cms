@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -30,9 +31,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+        Route::bind('tags', function ($slug) {
+            return Tag::where('slug', $slug)->firstOrFail();
+        });
     }
 
     /**
