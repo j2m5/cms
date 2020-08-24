@@ -1,5 +1,5 @@
 <template>
-    <span class="md-title">My Title</span>
+  <span class="md-title" />
 </template>
 
 <script>

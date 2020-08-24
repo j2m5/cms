@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,4 +12,24 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+  .sass('resources/sass/app.scss', 'public/css')
+
+mix.webpackConfig({
+  output: {
+    path: path.resolve('public/dist/'),
+    publicPath: '/dist/',
+    chunkFilename: '[name].chunk.js'
+  },
+  module: {
+    rules: [
+      {
+        enforce: 'pre',
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        test: /\.(js|vue)?$/
+      }
+    ]
+  }
+})
+
+mix.copy('resources/js/admin/public/*', 'public/dist/assets')

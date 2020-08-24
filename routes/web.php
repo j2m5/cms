@@ -32,3 +32,7 @@ Route::group(['namespace' => 'Blog'], function() {
     Route::get('/pages/{slug}', 'PageController@show')->name('blog.pages.show');
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
