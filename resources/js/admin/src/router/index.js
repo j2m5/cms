@@ -434,6 +434,30 @@ const routes = [
     meta: {
       permission: 3
     }
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import('../views/users/UserList'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/users/create',
+    name: 'users.create',
+    component: () => import('../views/users/UserCreate'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/users/:id/edit',
+    name: 'users.edit',
+    component: () => import('../views/users/UserEdit'),
+    meta: {
+      permission: 4
+    }
   }
 ]
 
