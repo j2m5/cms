@@ -2,7 +2,7 @@
   <md-table md-card>
     <md-table-toolbar>
       <h1 class="md-title">
-        Разделы
+        Теги
       </h1>
     </md-table-toolbar>
     <md-table-row>
@@ -10,25 +10,25 @@
         ID
       </md-table-head>
       <md-table-head>Название</md-table-head>
-      <md-table-head>Описание</md-table-head>
+      <md-table-head>Кол-во записей</md-table-head>
       <md-table-head>Добавлено</md-table-head>
       <md-table-head>Обновлено</md-table-head>
       <md-table-head />
     </md-table-row>
-    <md-table-row v-for="category in categories.data" :key="category.id">
+    <md-table-row v-for="tag in tags.data" :key="tag.id">
       <md-table-cell md-numeric>
-        {{ category.id }}
+        {{ tag.id }}
       </md-table-cell>
-      <md-table-cell>{{ category.title }}</md-table-cell>
-      <md-table-cell>{{ category.description || 'Не указано' }}</md-table-cell>
-      <md-table-cell>{{ category.created_at }}</md-table-cell>
-      <md-table-cell>{{ category.updated_at }}</md-table-cell>
+      <md-table-cell>{{ tag.name }}</md-table-cell>
+      <md-table-cell>{{ tag.posts.length }}</md-table-cell>
+      <md-table-cell>{{ tag.created_at }}</md-table-cell>
+      <md-table-cell>{{ tag.updated_at }}</md-table-cell>
       <md-table-cell class="align-content-start">
         <md-button class="md-icon-button md-dense md-raised md-accent">
-          <md-icon>delete</md-icon>
+          <md-icon>delete_forever</md-icon>
         </md-button>
         <md-tooltip md-direction="top">
-          В корзину
+          Удалить навсегда
         </md-tooltip>
       </md-table-cell>
     </md-table-row>
@@ -38,19 +38,19 @@
 <script>
 import { index } from '../../api/api'
 export default {
-  name: 'CategoryList',
+  name: 'TagList',
   data() {
     return {
-      categories: []
+      tags: []
     }
   },
   created() {
-    this.getCategories()
+    this.getTags()
   },
   methods: {
-    getCategories() {
-      index('categories').then((res) => {
-        this.categories = res.data.categories || []
+    getTags() {
+      index('tags').then((res) => {
+        this.tags = res.data.tags || []
       })
     }
   }

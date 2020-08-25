@@ -386,6 +386,54 @@ const routes = [
     meta: {
       permission: 4
     }
+  },
+  {
+    path: '/posts',
+    name: 'posts',
+    component: () => import('../views/posts/PostList'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
+    path: '/posts/create',
+    name: 'posts.create',
+    component: () => import('../views/posts/PostCreate'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
+    path: '/posts/:id/edit',
+    name: 'posts.edit',
+    component: () => import('../views/posts/PostEdit'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
+    path: '/tags',
+    name: 'tags',
+    component: () => import('../views/tags/TagList'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
+    path: '/tags/create',
+    name: 'tags.create',
+    component: () => import('../views/tags/TagCreate'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
+    path: '/tags/:id/edit',
+    name: 'tags.edit',
+    component: () => import('../views/tags/TagEdit'),
+    meta: {
+      permission: 3
+    }
   }
 ]
 
