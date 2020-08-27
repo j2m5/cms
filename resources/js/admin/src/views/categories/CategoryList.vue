@@ -19,7 +19,11 @@
       <md-table-cell md-numeric>
         {{ category.id }}
       </md-table-cell>
-      <md-table-cell>{{ category.title }}</md-table-cell>
+      <md-table-cell>
+        <router-link :to="{ name: 'categories.edit', params: { id: category.id } }">
+          {{ category.title }}
+        </router-link>
+      </md-table-cell>
       <md-table-cell>{{ category.description || 'Не указано' }}</md-table-cell>
       <md-table-cell>{{ category.created_at }}</md-table-cell>
       <md-table-cell>{{ category.updated_at }}</md-table-cell>
