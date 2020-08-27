@@ -458,6 +458,46 @@ const routes = [
     meta: {
       permission: 4
     }
+  },
+  {
+    path: '/pages',
+    name: 'pages',
+    component: () => import('../views/pages/PageList'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/pages/create',
+    name: 'pages.create',
+    component: () => import('../views/pages/PageCreate'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/pages/:id/edit',
+    name: 'pages.edit',
+    component: () => import('../views/pages/PageEdit'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/comments',
+    name: 'comments',
+    component: () => import('../views/comments/CommentList'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
+    path: '/comments/:id/edit',
+    name: 'comments.edit',
+    component: () => import('../views/comments/CommentEdit'),
+    meta: {
+      permission: 3
+    }
   }
 ]
 

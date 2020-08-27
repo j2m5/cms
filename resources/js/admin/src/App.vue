@@ -3,7 +3,7 @@
     <md-app-toolbar class="md-primary">
       <toolbar />
     </md-app-toolbar>
-    <md-app-drawer md-permanent="full">
+    <md-app-drawer md-permanent="clipped">
       <navbar />
     </md-app-drawer>
     <md-app-content>

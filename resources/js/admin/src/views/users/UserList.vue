@@ -2,7 +2,7 @@
   <md-table md-card>
     <md-table-toolbar>
       <h1 class="md-title">
-        Теги
+        Пользователи
       </h1>
     </md-table-toolbar>
     <md-table-row>
