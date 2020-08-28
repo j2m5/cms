@@ -76,7 +76,9 @@ export default {
       })
     },
     save() {
-      update('categories', this.$route.params.id, this.form).then(() => {}).catch((err) => {
+      update('categories', this.$route.params.id, this.form).then((res) => {
+        this.$toast.success(res.data.success)
+      }).catch((err) => {
         this.showErrors = true
         this.errors = err.response.data.errors || {}
       })
