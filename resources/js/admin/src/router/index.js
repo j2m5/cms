@@ -506,6 +506,18 @@ const routes = [
     meta: {
       permission: 4
     }
+  },
+  {
+    path: '/themes',
+    name: 'themes',
+    component: () => import('../views/settings/ThemeList'),
+    meta: {
+      breadcrumb: {
+        label: 'Внешний вид',
+        parent: 'dashboard'
+      },
+      permission: 4
+    }
   }
 ]
 
