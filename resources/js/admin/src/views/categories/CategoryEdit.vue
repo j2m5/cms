@@ -38,9 +38,6 @@
         <md-button type="submit" class="md-raised md-primary">
           Сохранить
         </md-button>
-        <md-snackbar md-position="center" :md-duration="3000" :md-active.sync="showErrors" md-persistent>
-          <span v-for="(error, key) in errors" :key="key">{{ error }}</span>
-        </md-snackbar>
       </form>
     </md-card-content>
   </md-card>
@@ -48,13 +45,13 @@
 
 <script>
 import { edit, update } from '../../api/api'
+import showErrors from '../../mixins/showErrors'
 export default {
   name: 'CategoryEdit',
+  mixins: [showErrors],
   data() {
     return {
-      showErrors: false,
       categories: [],
-      errors: {},
       form: {
         title: null,
         slug: null,
@@ -79,8 +76,7 @@ export default {
       update('categories', this.$route.params.id, this.form).then((res) => {
         this.$toast.success(res.data.success)
       }).catch((err) => {
-        this.showErrors = true
-        this.errors = err.response.data.errors || {}
+        this.showErrors(err)
       })
     }
   }

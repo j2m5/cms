@@ -18,9 +18,6 @@
         <md-button type="submit" class="md-raised md-primary">
           Сохранить
         </md-button>
-        <md-snackbar md-position="center" :md-duration="3000" :md-active.sync="showErrors" md-persistent>
-          <span v-for="(error, key) in errors" :key="key">{{ error }}</span>
-        </md-snackbar>
       </form>
     </md-card-content>
   </md-card>
@@ -28,12 +25,12 @@
 
 <script>
 import { store } from '../../api/api'
+import showErrors from '../../mixins/showErrors'
 export default {
   name: 'TagCreate',
+  mixins: [showErrors],
   data() {
     return {
-      showErrors: false,
-      errors: {},
       form: {
         name: null,
         slug: null
@@ -42,11 +39,11 @@ export default {
   },
   methods: {
     save() {
-      store('tags', this.form).then(() => {
+      store('tags', this.form).then((res) => {
+        this.$toast.success(res.data.success)
         this.$router.push({ name: 'tags' })
       }).catch((err) => {
-        this.showErrors = true
-        this.errors = err.response.data.errors || {}
+        this.showErrors(err)
       })
     }
   }

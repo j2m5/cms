@@ -498,6 +498,14 @@ const routes = [
     meta: {
       permission: 3
     }
+  },
+  {
+    path: '/tools',
+    name: 'tools',
+    component: () => import('../views/tools/'),
+    meta: {
+      permission: 4
+    }
   }
 ]
 

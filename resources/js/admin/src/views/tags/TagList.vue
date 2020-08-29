@@ -19,7 +19,11 @@
       <md-table-cell md-numeric>
         {{ tag.id }}
       </md-table-cell>
-      <md-table-cell>{{ tag.name }}</md-table-cell>
+      <md-table-cell>
+        <router-link :to="{ name: 'tags.edit', params: { id: tag.id } }">
+          {{ tag.name }}
+        </router-link>
+      </md-table-cell>
       <md-table-cell>{{ tag.posts.length }}</md-table-cell>
       <md-table-cell>{{ tag.created_at }}</md-table-cell>
       <md-table-cell>{{ tag.updated_at }}</md-table-cell>

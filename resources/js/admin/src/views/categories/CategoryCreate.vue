@@ -38,9 +38,6 @@
         <md-button type="submit" class="md-raised md-primary">
           Сохранить
         </md-button>
-        <md-snackbar md-position="center" :md-duration="3000" :md-active.sync="showErrors" md-persistent>
-          <span v-for="(error, key) in errors" :key="key">{{ error }}</span>
-        </md-snackbar>
       </form>
     </md-card-content>
   </md-card>
@@ -48,13 +45,13 @@
 
 <script>
 import { create, store } from '../../api/api'
+import showErrors from '../../mixins/showErrors'
 export default {
   name: 'CategoryCreate',
+  mixins: [showErrors],
   data() {
     return {
-      showErrors: false,
       categories: [],
-      errors: {},
       form: {
         title: null,
         slug: null,
@@ -78,8 +75,7 @@ export default {
       store('categories', this.form).then(() => {
         this.$router.push({ name: 'categories' })
       }).catch((err) => {
-        this.showErrors = true
-        this.errors = err.response.data.errors || {}
+        this.showErrors(err)
       })
     }
   }

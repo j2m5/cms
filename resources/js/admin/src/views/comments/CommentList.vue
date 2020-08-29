@@ -22,7 +22,12 @@
       </md-table-cell>
       <md-table-cell>{{ comment.post.title }}</md-table-cell>
       <md-table-cell>{{ comment.user.login || comment.author }}</md-table-cell>
-      <md-table-cell>{{ comment.content }}</md-table-cell>
+      <md-table-cell>
+        {{ comment.content | truncStr }}
+        <md-tooltip md-direction="top">
+          {{ comment.content }}
+        </md-tooltip>
+      </md-table-cell>
       <md-table-cell>{{ comment.created_at }}</md-table-cell>
       <md-table-cell>{{ comment.updated_at }}</md-table-cell>
       <md-table-cell class="align-content-start">
@@ -39,8 +44,10 @@
 
 <script>
 import { index } from '../../api/api'
+import { truncStr } from '../../filters'
 export default {
   name: 'CommentList',
+  filters: { truncStr },
   data() {
     return {
       comments: []

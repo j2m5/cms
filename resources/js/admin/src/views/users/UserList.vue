@@ -20,8 +20,18 @@
       <md-table-cell md-numeric>
         {{ user.id }}
       </md-table-cell>
-      <md-table-cell>{{ user.login }}</md-table-cell>
-      <md-table-cell>{{ user.email }}</md-table-cell>
+      <md-table-cell>
+        {{ user.login | truncStr }}
+        <md-tooltip md-direction="top">
+          {{ user.login }}
+        </md-tooltip>
+      </md-table-cell>
+      <md-table-cell>
+        {{ user.email | truncStr }}
+        <md-tooltip md-direction="top">
+          {{ user.email }}
+        </md-tooltip>
+      </md-table-cell>
       <md-table-cell>{{ user.role.role_value }}</md-table-cell>
       <md-table-cell>{{ user.ip }}</md-table-cell>
       <md-table-cell>{{ user.created_at }}</md-table-cell>
@@ -39,8 +49,10 @@
 
 <script>
 import { index } from '../../api/api'
+import { truncStr } from '../../filters'
 export default {
   name: 'UserList',
+  filters: { truncStr },
   data() {
     return {
       users: []
