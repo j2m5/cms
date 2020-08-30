@@ -500,6 +500,22 @@ const routes = [
     }
   },
   {
+    path: '/tickets',
+    name: 'tickets',
+    component: () => import('../views/tickets/TicketList'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/tickets/:id/show',
+    name: 'tickets.show',
+    component: () => import('../views/tickets/TicketShow'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
     path: '/tools',
     name: 'tools',
     component: () => import('../views/tools/'),
@@ -516,6 +532,14 @@ const routes = [
         label: 'Внешний вид',
         parent: 'dashboard'
       },
+      permission: 4
+    }
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/settings/SettingList'),
+    meta: {
       permission: 4
     }
   }

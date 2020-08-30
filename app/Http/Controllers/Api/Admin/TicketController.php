@@ -36,8 +36,7 @@ class TicketController extends BaseController
     {
         $ticket = $this->ticketRepository->getAdminShow($id);
         $messages = $this->ticketMessageRepository->getMessagesOfTicket($id);
-        $authUser = ['id' => auth()->id(), 'login' => auth()->user()->login, 'avatar' => auth()->user()->avatar];
-        return response()->json(['ticket' => $ticket, 'messages' => $messages, 'authUser' => $authUser], 200);
+        return response()->json(['ticket' => $ticket, 'messages' => $messages], 200);
     }
 
     public function edit($id)

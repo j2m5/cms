@@ -26,7 +26,7 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Api\Admin', 'middleware' => 
     Route::resource('/posts', 'BlogPostController', ['parameters' => ['posts' => 'id'], 'except' => ['show']]);
     Route::resource('/tags', 'TagController', ['parameters' => ['tags' => 'id']]);
     Route::resource('/users', 'UserController', ['parameters' => ['users' => 'id'], 'except' => ['show']]);
-    Route::resource('/tickets', 'TicketController', ['parameters' => ['tickets' => 'id'], 'except' => ['create', 'edit']]);
+    Route::resource('/tickets', 'TicketController', ['parameters' => ['tickets' => 'id'], 'only' => ['index', 'show']]);
     Route::resource('/pages', 'PageController', ['parameters' => ['pages' => 'id'], 'except' => ['show']]);
     Route::resource('/menus', 'MenuController', ['parameters' => ['menus' => 'id'], 'except' => ['show']]);
     Route::resource('/menu-items', 'MenuItemController', ['parameters' => ['menu-items' => 'id'], 'except' => ['show']]);

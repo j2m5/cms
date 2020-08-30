@@ -5,7 +5,7 @@ export function index(url, query = {}) {
 }
 
 export function show(url, id, query = {}) {
-  return axios.get('/api/admin/' + url + '/' + id + '/show', query)
+  return axios.get('/api/admin/' + url + '/' + id, query)
 }
 
 export function create(url, query = {}) {
