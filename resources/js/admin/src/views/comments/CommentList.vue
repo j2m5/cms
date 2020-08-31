@@ -23,7 +23,9 @@
       <md-table-cell>{{ comment.post.title }}</md-table-cell>
       <md-table-cell>{{ comment.user.login || comment.author }}</md-table-cell>
       <md-table-cell>
-        {{ comment.content | truncStr }}
+        <router-link :to="{ name: 'comments.edit', params: { id: comment.id } }">
+          {{ comment.content | truncStr }}
+        </router-link>
         <md-tooltip md-direction="top">
           {{ comment.content }}
         </md-tooltip>

@@ -21,10 +21,17 @@ class PageObserver
         if (empty($page->slug)) {
             if (isExistsPostSlug(Str::slug($page->title)) && $page->isDirty('slug')) $page->slug = Str::slug($page->title.'-'.Str::random(3));
             else $page->slug = Str::slug($page->title);
-        }
-        else {
+        } else {
             if (isExistsPostSlug($page->slug)) $page->slug = $page->slug.'-'.Str::random(3);
         }
+
+        if ($page->isDirty('created_at')) {
+            $page->setAttribute('created_at', $page->getAttributeValue('created_at'));
+        } else {
+            $page->setAttribute('created_at', now());
+        }
+
+        $page->setAttribute('user_id', auth()->id());
     }
 
     /**

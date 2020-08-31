@@ -21,7 +21,11 @@
         {{ page.id }}
       </md-table-cell>
       <md-table-cell>{{ page.user.login }}</md-table-cell>
-      <md-table-cell>{{ page.title }}</md-table-cell>
+      <md-table-cell>
+        <router-link :to="{ name: 'pages.edit', params: { id: page.id } }">
+          {{ page.title }}
+        </router-link>
+      </md-table-cell>
       <md-table-cell>{{ page.created_at }}</md-table-cell>
       <md-table-cell>{{ page.updated_at }}</md-table-cell>
       <md-table-cell>{{ page.is_public ? 'Да' : 'Нет' }}</md-table-cell>

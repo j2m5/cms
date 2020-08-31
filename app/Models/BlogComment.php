@@ -14,8 +14,7 @@ class BlogComment extends Model
         'parent_id',
         'user_id',
         'author',
-        'content',
-        'updated_by'
+        'content'
     ];
 
     public function post()

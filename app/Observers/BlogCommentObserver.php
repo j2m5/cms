@@ -32,6 +32,17 @@ class BlogCommentObserver
     }
 
     /**
+     * Handle the blog comment "updating" event.
+     *
+     * @param  \App\Models\BlogComment  $blogComment
+     * @return void
+     */
+    public function updating(BlogComment $blogComment)
+    {
+        $blogComment->setAttribute('updated_by', auth()->user()->login);
+    }
+
+    /**
      * Handle the blog comment "updated" event.
      *
      * @param  \App\Models\BlogComment  $blogComment

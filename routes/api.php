@@ -27,7 +27,7 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Api\Admin', 'middleware' => 
     Route::resource('/tags', 'TagController', ['parameters' => ['tags' => 'id']]);
     Route::resource('/users', 'UserController', ['parameters' => ['users' => 'id'], 'except' => ['show']]);
     Route::resource('/tickets', 'TicketController', ['parameters' => ['tickets' => 'id'], 'only' => ['index', 'show']]);
-    Route::resource('/pages', 'PageController', ['parameters' => ['pages' => 'id'], 'except' => ['show']]);
+    Route::resource('/pages', 'PageController', ['parameters' => ['pages' => 'id'], 'except' => ['create', 'show']]);
     Route::resource('/menus', 'MenuController', ['parameters' => ['menus' => 'id'], 'except' => ['show']]);
     Route::resource('/menu-items', 'MenuItemController', ['parameters' => ['menu-items' => 'id'], 'except' => ['show']]);
     Route::post('/tickets/message/store', 'TicketController@storeMessage')->name('admin.tickets.message.store');
