@@ -1,24 +1,23 @@
 <template>
-  <md-card class="mb">
-    <md-card-header>
-      <div class="md-title">
-        Создать карту сайта
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <md-icon>info</md-icon>
+  <v-card class="mb-5">
+    <v-card-title class="headline">
+      Карта сайта
+    </v-card-title>
+    <v-card-text>
+      <v-icon>mdi-information</v-icon>
       <span>Эта функция создаст XML-карту сайта, которая увеличит эффективность индексации сайта поисковыми системами</span>
-      <div class="mt">
-        <md-button class="md-raised md-primary" @click="generateSiteMap">
+      <div class="mt-3">
+        <v-btn type="submit" color="primary" rounded @click="generateSiteMap">
           Создать карту
-        </md-button>
-        <md-progress-spinner v-if="generating" :md-diameter="40" md-mode="indeterminate" />
+        </v-btn>
+        <v-progress-circular v-if="generating" indeterminate color="primary" />
       </div>
-    </md-card-content>
-    <md-card-actions v-if="success" md-alignment="left">
+    </v-card-text>
+    <v-divider />
+    <v-card-actions v-if="success">
       <div>Карта сайта доступна по пути: <b>Корневая директория сайта/public/sitemap.xml</b></div>
-    </md-card-actions>
-  </md-card>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -51,7 +50,7 @@ export default {
 
 <style scoped>
 i {
-    color: #448aff !important;
+    color: #1976d2 !important;
 }
 .mb {
     margin-bottom: 15px;

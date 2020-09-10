@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <v-container>
     <site-map-generate />
     <sym-link-generate />
-  </div>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -13,6 +16,16 @@ export default {
   components: {
     SiteMapGenerate,
     SymLinkGenerate
+  },
+  data() {
+    return {
+      loading: true
+    }
+  },
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 300)
   }
 }
 </script>

@@ -6,11 +6,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    drawer: true,
     siteName: '',
     siteLogo: '',
     user: {}
   },
   getters: {
+    drawer(state) {
+      return state.drawer
+    },
     siteName(state) {
       return state.siteName
     },
@@ -48,6 +52,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    updateDrawer(state, payload) {
+      state.drawer = payload
+    },
     updateSiteName(state, payload) {
       state.siteName = payload
     },

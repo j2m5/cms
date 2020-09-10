@@ -10,11 +10,7 @@ import Vue from 'vue'
 import App from './admin/src/App'
 import store from './admin/src/store'
 import router from './admin/src/router'
-
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-Vue.use(VueMaterial)
+import vuetify from './admin/src/plugins/vuetify'
 
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
@@ -22,6 +18,9 @@ Vue.use(VueToast, {
   position: 'top',
   duration: 3000
 })
+
+import DatetimePicker from 'vuetify-datetime-picker'
+Vue.use(DatetimePicker)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,6 +31,7 @@ Vue.use(VueToast, {
 new Vue({
   el: '#app',
   components: { App },
+  vuetify,
   router,
   store
 })

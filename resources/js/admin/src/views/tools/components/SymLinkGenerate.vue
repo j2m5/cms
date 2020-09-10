@@ -1,30 +1,29 @@
 <template>
-  <md-card class="mb">
-    <md-card-header>
-      <div class="md-title">
-        Создать ссылку на папку для хранения загруженных пользователями файлов
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <md-icon>info</md-icon>
-      <span> Эта функция создаст символьную ссылку для папки, в которой хранятся все загруженные на сервер файлы</span>
-      <div class="mt">
-        <md-button class="md-raised md-primary" @click="generateSymLink">
+  <v-card class="mb-5">
+    <v-card-title class="headline">
+      Создать ссылку на папку для хранения загруженных пользователями файлов
+    </v-card-title>
+    <v-card-text>
+      <v-icon>mdi-information</v-icon>
+      <span>Эта функция создаст символьную ссылку для папки, в которой хранятся все загруженные на сервер файлы</span>
+      <div class="mt-3">
+        <v-btn type="submit" color="primary" rounded @click="generateSymLink">
           Создать ссылку
-        </md-button>
-        <md-progress-spinner v-if="generating" :md-diameter="40" md-mode="indeterminate" />
+        </v-btn>
+        <v-progress-circular v-if="generating" indeterminate color="primary" />
       </div>
-    </md-card-content>
-    <md-card-actions v-if="success" md-alignment="left">
+    </v-card-text>
+    <v-divider />
+    <v-card-actions v-if="success">
       <div>
-        <div class="warning">
-          <md-icon>warning</md-icon>
+        <div class="warn">
+          <v-icon>mdi-alert</v-icon>
           <span> Рекомендуется обновить страницу</span>
         </div>
         <div>Ссылка на папку доступна по пути: <b>Корневая директория сайта/public/storage</b></div>
       </div>
-    </md-card-actions>
-  </md-card>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -57,10 +56,10 @@ export default {
 
 <style scoped>
 i {
-    color: #448aff !important;
+    color: #1976d2 !important;
 }
-.warning > i {
-    color: #ffc107 !important;
+.warn > i {
+    color: #fb8c00 !important;
 }
 .mb {
     margin-bottom: 15px;

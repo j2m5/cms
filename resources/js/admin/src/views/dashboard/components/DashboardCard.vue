@@ -1,16 +1,10 @@
 <template>
-  <md-card class="md-primary" md-theme="green-card">
-    <md-card-header>
-      <md-card-header-text>
-        <div class="md-title">
-          <count-to :start-val="0" :end-val="count" :duration="1500" />
-        </div>
-      </md-card-header-text>
-      <md-card-media>
-        <div>Кол-во {{ model }}</div>
-      </md-card-media>
-    </md-card-header>
-  </md-card>
+  <v-card>
+    <v-card-title class="headline">
+      <count-to :start-val="0" :end-val="count" :duration="1500" />
+    </v-card-title>
+    <v-card-subtitle>{{ model }}</v-card-subtitle>
+  </v-card>
 </template>
 
 <script>
@@ -32,7 +26,5 @@ export default {
 </script>
 
 <style scoped>
-  .md-card {
-    width: 350px;
-  }
+
 </style>

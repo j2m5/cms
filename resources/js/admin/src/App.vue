@@ -1,15 +1,11 @@
 <template>
-  <md-app md-mode="fixed">
-    <md-app-toolbar class="md-primary">
-      <toolbar />
-    </md-app-toolbar>
-    <md-app-drawer md-permanent="clipped">
-      <navbar />
-    </md-app-drawer>
-    <md-app-content>
+  <v-app id="vuetify">
+    <navbar />
+    <toolbar />
+    <v-main>
       <router-view />
-    </md-app-content>
-  </md-app>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -22,9 +18,5 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Material+Icons");
-.md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
-}
+
 </style>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Askedio\SoftCascade\Traits\SoftCascadeTrait;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,6 +28,11 @@ class BlogPost extends Model
 
     protected $softCascade = ['comments'];
     protected $dates = ['deleted_at'];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     public function user()
     {

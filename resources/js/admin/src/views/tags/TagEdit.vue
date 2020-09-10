@@ -1,26 +1,23 @@
 <template>
-  <md-card>
-    <md-card-header>
-      <div class="md-title">
-        Редактировать тег
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <form class="md-layout" @submit.prevent="save">
-        <md-field>
-          <label>Название</label>
-          <md-input v-model="form.name" />
-        </md-field>
-        <md-field>
-          <label>ЧПУ-псевдоним</label>
-          <md-input v-model="form.slug" />
-        </md-field>
-        <md-button type="submit" class="md-raised md-primary">
-          Сохранить
-        </md-button>
-      </form>
-    </md-card-content>
-  </md-card>
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
+        Добавить тег
+      </v-card-title>
+      <v-card-text>
+        <form @submit.prevent="save">
+          <v-text-field v-model="form.name" label="Название" />
+          <v-text-field v-model="form.slug" label="ЧПУ-псевдоним" />
+          <v-btn type="submit" color="primary" rounded>
+            Сохранить
+          </v-btn>
+        </form>
+      </v-card-text>
+    </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -31,6 +28,7 @@ export default {
   mixins: [showErrors],
   data() {
     return {
+      loading: false,
       form: {
         name: null,
         slug: null
@@ -42,8 +40,11 @@ export default {
   },
   methods: {
     getTag() {
+      this.loading = true
       edit('tags', this.$route.params.id).then((res) => {
         this.form = res.data.tag
+      }).finally(() => {
+        this.loading = false
       })
     },
     save() {

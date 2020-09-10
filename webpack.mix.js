@@ -33,3 +33,7 @@ mix.webpackConfig({
 })
 
 mix.copy('resources/js/admin/public/*', 'public/dist/assets')
+
+mix.copy('node_modules/@mdi/font/css/materialdesignicons.min.css', 'public/dist/css')
+
+mix.copy('node_modules/@mdi/font/fonts', 'public/dist/fonts')

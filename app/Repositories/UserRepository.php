@@ -51,7 +51,7 @@ class UserRepository extends BaseRepository
 
     public function getAdminEdit($id)
     {
-        $columns = ['id', 'login', 'name', 'email', 'avatar', 'role_id', 'password'];
+        $columns = ['id', 'login', 'name', 'email', 'avatar', 'role_id'];
         $user = $this->startQuery()
             ->select($columns)
             ->where('id', $id)

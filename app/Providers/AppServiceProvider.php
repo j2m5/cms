@@ -14,6 +14,7 @@ use App\Observers\BlogPostObserver;
 use App\Observers\PageObserver;
 use App\Observers\TagObserver;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

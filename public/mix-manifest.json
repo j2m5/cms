@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/dist/assets/favicon.ico": "/dist/assets/favicon.ico",
-    "/dist/assets/logo.png": "/dist/assets/logo.png"
+    "/dist/assets/logo.png": "/dist/assets/logo.png",
+    "/dist/css/materialdesignicons.min.css": "/dist/css/materialdesignicons.min.css"
 }

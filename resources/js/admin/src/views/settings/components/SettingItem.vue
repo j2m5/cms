@@ -1,21 +1,17 @@
 <template>
-  <md-card class="mb">
-    <md-card-header>
-      <div class="md-title">
-        {{ title }}
-      </div>
-    </md-card-header>
-    <md-card-content>
+  <v-card class="mb">
+    <v-card-title class="headline">
+      {{ title }}
+    </v-card-title>
+    <v-card-text>
       <form @submit.prevent="save(settingId)">
-        <md-field>
-          <md-input v-model="setValue" :placeholder="placeholder" />
-        </md-field>
-        <md-button type="submit" class="md-raised md-primary">
+        <v-text-field v-model="setValue" :placeholder="placeholder" />
+        <v-btn type="submit" color="primary" rounded>
           Сохранить
-        </md-button>
+        </v-btn>
       </form>
-    </md-card-content>
-  </md-card>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

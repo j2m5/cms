@@ -1,32 +1,31 @@
 <template>
-  <div class="md-layout md-alignment-left md-gutter">
-    <div v-for="(theme, key) in themes" :key="key" class="md-layout-item md-size-50">
-      <md-card>
-        <md-card-media>
-          <img :src="theme | themeImage" :alt="theme" class="theme-preview">
-        </md-card-media>
-        <md-card-actions md-alignment="space-between">
-          <div>{{ theme | ucFirst }}</div>
-          <div v-if="theme === currentTheme">
-            <md-button class="md-icon-button md-raised" href="/" target="_blank">
-              <md-icon>home</md-icon>
-            </md-button>
-            <md-tooltip md-direction="top">
-              Активно: посмотреть на сайте
-            </md-tooltip>
-          </div>
-          <div v-else>
-            <md-button class="md-icon-button md-raised md-primary" @click="setTheme(theme)">
-              <md-icon>edit</md-icon>
-            </md-button>
-            <md-tooltip md-direction="top">
-              Активировать тему
-            </md-tooltip>
-          </div>
-        </md-card-actions>
-      </md-card>
-    </div>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col v-for="(theme, key) in themes" :key="key" md="6">
+        <v-card>
+          <v-img
+            :src="theme | themeImage"
+            class="white--text align-end"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            height="400px"
+          >
+            <v-card-title>{{ theme | ucFirst }}</v-card-title>
+          </v-img>
+          <v-card-actions>
+            <v-btn v-if="theme === currentTheme" href="/" target="_blank" color="success" rounded>
+              Активно: перейти на сайт
+            </v-btn>
+            <v-btn v-else color="primary" rounded @click="setTheme(theme)">
+              Активировать
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -42,6 +41,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       themes: [],
       currentTheme: ''
     }
@@ -51,9 +51,12 @@ export default {
   },
   methods: {
     getThemes() {
+      this.loading = true
       index('themes').then((res) => {
         this.themes = res.data.themes
         this.currentTheme = res.data.currentTheme
+      }).finally(() => {
+        this.loading = false
       })
     },
     setTheme(theme) {
@@ -69,9 +72,5 @@ export default {
 </script>
 
 <style scoped>
-.theme-preview {
-    height: 400px;
-    width: 100%;
-    object-fit: cover;
-}
+
 </style>

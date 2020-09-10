@@ -31,6 +31,7 @@ class BlogPostRepository extends BaseRepository
         $posts = $this->startQuery()
             ->select($columns)
             ->where('is_public', 1)
+            ->where('created_at', '<=', now())
             ->latest()
             ->with('category:id,title', 'user:id,name', 'tags:tag_id,name,slug', 'comments:id,post_id')
             ->paginate(countPostsOnPage());

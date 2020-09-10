@@ -1,50 +1,86 @@
 <template>
-  <md-table md-card>
-    <md-table-toolbar>
-      <h1 class="md-title">
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
         Разделы
-      </h1>
-    </md-table-toolbar>
-    <md-table-row>
-      <md-table-head md-numeric>
-        ID
-      </md-table-head>
-      <md-table-head>Название</md-table-head>
-      <md-table-head>Описание</md-table-head>
-      <md-table-head>Добавлено</md-table-head>
-      <md-table-head>Обновлено</md-table-head>
-      <md-table-head />
-    </md-table-row>
-    <md-table-row v-for="category in categories.data" :key="category.id">
-      <md-table-cell md-numeric>
-        {{ category.id }}
-      </md-table-cell>
-      <md-table-cell>
-        <router-link :to="{ name: 'categories.edit', params: { id: category.id } }">
-          {{ category.title }}
-        </router-link>
-      </md-table-cell>
-      <md-table-cell>{{ category.description || 'Не указано' }}</md-table-cell>
-      <md-table-cell>{{ category.created_at }}</md-table-cell>
-      <md-table-cell>{{ category.updated_at }}</md-table-cell>
-      <md-table-cell class="align-content-start">
-        <md-button class="md-icon-button md-dense md-raised md-accent">
-          <md-icon>delete</md-icon>
-        </md-button>
-        <md-tooltip md-direction="top">
-          В корзину
-        </md-tooltip>
-      </md-table-cell>
-    </md-table-row>
-  </md-table>
+      </v-card-title>
+      <v-card-text>
+        <v-simple-table fixed-header>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  ID
+                </th>
+                <th class="text-left">
+                  Название
+                </th>
+                <th class="text-left">
+                  Описание
+                </th>
+                <th class="text-left">
+                  Добавлено
+                </th>
+                <th class="text-left">
+                  Обновлено
+                </th>
+                <th class="text-left" />
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(category, key) in categories.data" :key="key">
+                <td>{{ category.id }}</td>
+                <td>
+                  <router-link :to="{ name: 'categories.edit', params: { id: category.id } }">
+                    {{ category.title }}
+                  </router-link>
+                </td>
+                <td>{{ category.description || '--' }}</td>
+                <td>{{ category.created_at }}</td>
+                <td>{{ category.updated_at || '--' }}</td>
+                <td>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn color="error" fab x-small v-bind="attrs" v-on="on" @click="del(category.id)">
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>В корзину</span>
+                  </v-tooltip>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card-text>
+      <v-divider />
+      <v-card-actions v-if="categories.total && categories.total > categories.per_page">
+        <div class="text-center w-100">
+          <v-pagination
+            v-model="query.page"
+            :length="categories.last_page"
+            circle
+            @input="getCategories"
+          />
+        </div>
+      </v-card-actions>
+    </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
-import { index } from '../../api/api'
+import { index, destroy } from '../../api/api'
 export default {
   name: 'CategoryList',
   data() {
     return {
+      loading: false,
+      query: {
+        page: 1
+      },
       categories: []
     }
   },
@@ -53,8 +89,19 @@ export default {
   },
   methods: {
     getCategories() {
-      index('categories').then((res) => {
+      this.loading = true
+      index('categories', { params: { page: this.query.page }}).then((res) => {
         this.categories = res.data.categories || []
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+    del(id) {
+      destroy('categories', id).then((res) => {
+        this.$toast.success(res.data.success)
+        this.getCategories()
+      }).catch(() => {
+        this.$toast.warning('Произошла ошибка')
       })
     }
   }
@@ -62,5 +109,7 @@ export default {
 </script>
 
 <style scoped>
-
+.w-100 {
+    width: 100%;
+}
 </style>

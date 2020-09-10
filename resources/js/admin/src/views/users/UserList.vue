@@ -1,60 +1,96 @@
 <template>
-  <md-table md-card>
-    <md-table-toolbar>
-      <h1 class="md-title">
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
         Пользователи
-      </h1>
-    </md-table-toolbar>
-    <md-table-row>
-      <md-table-head md-numeric>
-        ID
-      </md-table-head>
-      <md-table-head>Логин</md-table-head>
-      <md-table-head>E-mail</md-table-head>
-      <md-table-head>Роль</md-table-head>
-      <md-table-head>IP-адрес</md-table-head>
-      <md-table-head>Регистрация</md-table-head>
-      <md-table-head />
-    </md-table-row>
-    <md-table-row v-for="user in users.data" :key="user.id">
-      <md-table-cell md-numeric>
-        {{ user.id }}
-      </md-table-cell>
-      <md-table-cell>
-        {{ user.login | truncStr }}
-        <md-tooltip md-direction="top">
-          {{ user.login }}
-        </md-tooltip>
-      </md-table-cell>
-      <md-table-cell>
-        {{ user.email | truncStr }}
-        <md-tooltip md-direction="top">
-          {{ user.email }}
-        </md-tooltip>
-      </md-table-cell>
-      <md-table-cell>{{ user.role.role_value }}</md-table-cell>
-      <md-table-cell>{{ user.ip }}</md-table-cell>
-      <md-table-cell>{{ user.created_at }}</md-table-cell>
-      <md-table-cell class="align-content-start">
-        <md-button class="md-icon-button md-dense md-raised md-accent">
-          <md-icon>remove_circle_outline</md-icon>
-        </md-button>
-        <md-tooltip md-direction="top">
-          Забанить
-        </md-tooltip>
-      </md-table-cell>
-    </md-table-row>
-  </md-table>
+      </v-card-title>
+      <v-card-text>
+        <v-simple-table fixed-header>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  ID
+                </th>
+                <th class="text-left">
+                  Логин
+                </th>
+                <th class="text-left">
+                  Email-адрес
+                </th>
+                <th class="text-left">
+                  IP-адрес
+                </th>
+                <th class="text-left">
+                  Роль
+                </th>
+                <th class="text-left">
+                  Зарегистрирован
+                </th>
+                <th class="text-left" />
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(user, key) in users.data" :key="key">
+                <td>{{ user.id }}</td>
+                <td>
+                  <router-link :to="{ name: 'users.edit', params: { id: user.id } }">
+                    {{ user.login }}
+                  </router-link>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.ip }}</td>
+                <td>{{ user.role.role_value }}</td>
+                <td>{{ user.created_at }}</td>
+                <td>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn v-if="!user.banned" color="error" fab x-small v-bind="attrs" v-on="on" @click="ban(user.id)">
+                        <v-icon>mdi-cancel</v-icon>
+                      </v-btn>
+                      <v-btn v-else color="success" fab x-small v-bind="attrs" v-on="on" @click="ban(user.id)">
+                        <v-icon>mdi-check-circle-outline</v-icon>
+                      </v-btn>
+                    </template>
+                    <span v-if="!user.banned">Забанить</span>
+                    <span v-else>Разбанить</span>
+                  </v-tooltip>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card-text>
+      <v-divider />
+      <v-card-actions v-if="users.total && users.total > users.per_page">
+        <div class="text-center w-100">
+          <v-pagination
+            v-model="query.page"
+            :length="users.last_page"
+            circle
+            @input="getUsers"
+          />
+        </div>
+      </v-card-actions>
+    </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
-import { index } from '../../api/api'
+import { index, patchRequest } from '../../api/api'
 import { truncStr } from '../../filters'
 export default {
   name: 'UserList',
   filters: { truncStr },
   data() {
     return {
+      loading: false,
+      query: {
+        page: 1
+      },
       users: []
     }
   },
@@ -63,8 +99,19 @@ export default {
   },
   methods: {
     getUsers() {
-      index('users').then((res) => {
+      this.loading = true
+      index('users', { params: { page: this.query.page }}).then((res) => {
         this.users = res.data.users || []
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+    ban(id) {
+      patchRequest('users/' + id + '/ban').then((res) => {
+        this.$toast.success(res.data.success)
+        this.getUsers()
+      }).catch((err) => {
+        this.$toast.warning(err.response.data.errors)
       })
     }
   }

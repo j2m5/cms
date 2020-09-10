@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <setting-item
       title="Изменить название сайта"
       :setting-id="1"
@@ -48,7 +48,10 @@
       :value="settings.countPostsOnPage"
       placeholder="Введите количество (цифры)"
     />
-  </div>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -59,6 +62,7 @@ export default {
   components: { SettingItem },
   data() {
     return {
+      loading: false,
       settings: {
         siteName: '',
         siteDesc: '',
@@ -76,6 +80,7 @@ export default {
   },
   methods: {
     getSettings() {
+      this.loading = true
       index('settings').then((res) => {
         this.settings.siteName = res.data.siteName
         this.settings.siteDesc = res.data.siteDesc
@@ -85,6 +90,8 @@ export default {
         this.settings.adminEmail = res.data.adminEmail
         this.settings.countOnPage = res.data.countOnPage
         this.settings.countPostsOnPage = res.data.countPostsOnPage
+      }).finally(() => {
+        this.loading = false
       })
     }
   }

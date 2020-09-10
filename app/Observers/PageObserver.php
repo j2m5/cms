@@ -25,10 +25,10 @@ class PageObserver
             if (isExistsPostSlug($page->slug)) $page->slug = $page->slug.'-'.Str::random(3);
         }
 
-        if ($page->isDirty('created_at')) {
-            $page->setAttribute('created_at', $page->getAttributeValue('created_at'));
-        } else {
+        if (empty($page->getAttribute('created_at'))) {
             $page->setAttribute('created_at', now());
+        } else {
+            $page->setAttribute('created_at', $page->getAttribute('created_at'));
         }
 
         $page->setAttribute('user_id', auth()->id());
@@ -68,9 +68,16 @@ class PageObserver
         if (empty($page->slug)) {
             if (isExistsPostSlug(Str::slug($page->title))) $page->slug = Str::slug($page->title.'-'.Str::random(3));
             else $page->slug = Str::slug($page->title);
-        }
-        else {
+        } else {
             if (isExistsPostSlug($page->slug) && $page->isDirty('slug')) $page->slug = $page->slug.'-'.Str::random(3);
+        }
+
+        if (empty($page->getAttribute('created_at'))) {
+            $page->setAttribute('created_at', now());
+        } else {
+            if ($page->isDirty('created_at')) {
+                $page->setAttribute('created_at', $page->getAttribute('created_at'));
+            }
         }
     }
 

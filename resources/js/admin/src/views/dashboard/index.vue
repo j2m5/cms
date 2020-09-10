@@ -1,21 +1,28 @@
 <template>
-  <div class="md-layout md-alignment-left">
-    <div>
-      <dashboard-card :count="countCategories" model="разделов" />
-    </div>
-    <div>
-      <dashboard-card :count="countPosts" model="записей" />
-    </div>
-    <div>
-      <dashboard-card :count="countTags" model="тегов" />
-    </div>
-    <div>
-      <dashboard-card :count="countUsers" model="пользователей" />
-    </div>
-    <div>
-      <dashboard-card :count="countComments" model="комментариев" />
-    </div>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col md="4">
+        <dashboard-card :count="countCategories" model="разделов" />
+      </v-col>
+      <v-col md="4">
+        <dashboard-card :count="countPosts" model="записей" />
+      </v-col>
+      <v-col md="4">
+        <dashboard-card :count="countTags" model="тегов" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col md="4">
+        <dashboard-card :count="countUsers" model="пользователей" />
+      </v-col>
+      <v-col md="4">
+        <dashboard-card :count="countComments" model="комментариев" />
+      </v-col>
+    </v-row>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -26,6 +33,7 @@ export default {
   components: { DashboardCard },
   data() {
     return {
+      loading: false,
       countCategories: 0,
       countPosts: 0,
       countTags: 0,
@@ -38,12 +46,15 @@ export default {
   },
   methods: {
     getCounters() {
+      this.loading = true
       index('dashboard').then((res) => {
         this.countCategories = res.data.categories
         this.countPosts = res.data.posts
         this.countTags = res.data.tags
         this.countUsers = res.data.users
         this.countComments = res.data.comments
+      }).finally(() => {
+        this.loading = false
       })
     }
   }

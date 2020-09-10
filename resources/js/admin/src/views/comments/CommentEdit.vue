@@ -1,24 +1,28 @@
 <template>
-  <md-card>
-    <md-card-header>
-      <div class="md-title">
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
         Редактировать комментарий
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <p>Логин автора: <b>{{ form.user.login }}</b></p>
-      <div v-if="form.updated_at !== form.created_at">
-        <p>Отредактирован когда: <b>{{ form.updated_at }}</b></p>
-        <p>Отредактирован кем: <b>{{ form.updated_by }}</b></p>
-      </div>
-      <form @submit.prevent="save">
-        <ckeditor v-model="form.content" :config="ckeditor" />
-        <md-button type="submit" class="md-raised md-primary">
-          Сохранить
-        </md-button>
-      </form>
-    </md-card-content>
-  </md-card>
+      </v-card-title>
+      <v-card-text>
+        <p>Логин автора: <b>{{ form.user.login }}</b></p>
+        <div v-if="form.updated_at !== form.created_at">
+          <p>Отредактирован когда: <b>{{ form.updated_at }}</b></p>
+          <p>Отредактирован кем: <b>{{ form.updated_by }}</b></p>
+        </div>
+        <form @submit.prevent="save">
+          <label>Содержимое страницы</label>
+          <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
+          <v-btn type="submit" color="primary" class="mt-3" rounded>
+            Сохранить
+          </v-btn>
+        </form>
+      </v-card-text>
+    </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -34,6 +38,7 @@ export default {
   mixins: [showErrors],
   data() {
     return {
+      loading: false,
       form: {
         user: {},
         content: null
@@ -46,8 +51,11 @@ export default {
   },
   methods: {
     getComment() {
+      this.loading = true
       edit('comments', this.$route.params.id).then((res) => {
         this.form = res.data.comment
+      }).finally(() => {
+        this.loading = false
       })
     },
     save() {
@@ -63,7 +71,5 @@ export default {
 </script>
 
 <style scoped>
-button {
-    margin: 10px 0 0;
-}
+
 </style>

@@ -1,46 +1,27 @@
 <template>
-  <md-card>
-    <md-card-header>
-      <div class="md-title">
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
         Редактировать раздел
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <form class="md-layout" @submit.prevent="save">
-        <md-field>
-          <label>Название</label>
-          <md-input v-model="form.title" />
-        </md-field>
-        <md-field>
-          <label>ЧПУ-псевдоним</label>
-          <md-input v-model="form.slug" />
-        </md-field>
-        <md-field>
-          <label>Выберите раздел</label>
-          <md-select v-model="form.parent_id">
-            <md-option v-for="(category, key) in categories" :key="key" :value="category.id">
-              {{ category.title }}
-            </md-option>
-          </md-select>
-        </md-field>
-        <md-field>
-          <label>Описание раздела</label>
-          <md-textarea v-model="form.description" md-autogrow />
-        </md-field>
-        <md-field>
-          <label>Мета-описание</label>
-          <md-input v-model="form.md" />
-        </md-field>
-        <md-field>
-          <label>Ключевые слова</label>
-          <md-input v-model="form.mk" />
-        </md-field>
-        <md-button type="submit" class="md-raised md-primary">
-          Сохранить
-        </md-button>
-      </form>
-    </md-card-content>
-  </md-card>
+      </v-card-title>
+      <v-card-text>
+        <form>
+          <v-text-field v-model="form.title" label="Название" />
+          <v-text-field v-model="form.slug" label="ЧПУ-псевдоним" />
+          <v-select v-model="form.parent_id" :items="categories" item-text="title" item-value="id" label="Выберите раздел" />
+          <v-textarea v-model="form.description" label="Описание" hint="Введите описание" />
+          <v-text-field v-model="form.md" label="Мета-описание" />
+          <v-text-field v-model="form.mk" label="Ключевые слова" />
+          <v-btn color="primary" rounded @click="save">
+            Сохранить
+          </v-btn>
+        </form>
+      </v-card-text>
+    </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -51,6 +32,7 @@ export default {
   mixins: [showErrors],
   data() {
     return {
+      loading: false,
       categories: [],
       form: {
         title: null,
@@ -67,9 +49,12 @@ export default {
   },
   methods: {
     getCategory() {
+      this.loading = true
       edit('categories', this.$route.params.id).then((res) => {
         this.categories = res.data.categories
         this.form = res.data.category
+      }).finally(() => {
+        this.loading = false
       })
     },
     save() {

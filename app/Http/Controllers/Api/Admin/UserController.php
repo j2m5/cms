@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -28,7 +29,7 @@ class UserController extends BaseController
         return response()->json(['roles' => $roles], 200);
     }
 
-    public function store(UserRequest $request)
+    public function store(UserStoreRequest $request)
     {
         $user = new User($request->input());
         if (Gate::denies('create', $user)) return response()->json(['errors' => 'Недостаточно прав для выполнения этого действия', 'forbidden' => 1], 401);
@@ -43,13 +44,12 @@ class UserController extends BaseController
 
     public function edit($id)
     {
-        $authUser = auth()->user()->id;
         $user = $this->userRepository->getAdminEdit($id);
         $roles = $this->roleRepository->getRoles();
-        return response()->json(['authUser' => $authUser, 'user' => $user, 'roles' => $roles], 200);
+        return response()->json(['user' => $user, 'roles' => $roles], 200);
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         $user = $this->userRepository->getAdminEdit($id);
         if (Gate::denies('delete', $user)) return response()->json(['errors' => 'Недостаточно прав для выполнения этого действия', 'forbidden' => 1], 401);

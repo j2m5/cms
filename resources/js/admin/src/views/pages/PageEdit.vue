@@ -1,45 +1,47 @@
 <template>
-  <md-card>
-    <md-card-header>
-      <div class="md-title">
-        Добавить страницу
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <form @submit.prevent="save">
-        <md-field>
-          <label>Название</label>
-          <md-input v-model="form.title" />
-        </md-field>
-        <md-field>
-          <label>ЧПУ-псевдоним</label>
-          <md-input v-model="form.slug" />
-        </md-field>
-        <md-field>
-          <md-datepicker v-model="form.created_at">
-            <label>Выберите дату</label>
-          </md-datepicker>
-        </md-field>
-        <ckeditor v-model="form.content" :config="ckeditor" />
-        <md-field>
-          <label>Мета-описание</label>
-          <md-input v-model="form.md" />
-        </md-field>
-        <md-field>
-          <label>Ключевые слова</label>
-          <md-input v-model="form.mk" />
-        </md-field>
-        <md-checkbox v-model="form.is_public" :true-value="1" :false-value="0" class="md-primary">
-          Опубликовать страницу
-        </md-checkbox>
-        <div>
-          <md-button type="submit" class="md-raised md-primary">
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
+        Редактировать страницу
+      </v-card-title>
+      <v-card-text>
+        <form @submit.prevent="save">
+          <v-text-field v-model="form.title" label="Название" />
+          <v-text-field v-model="form.slug" label="ЧПУ-псевдоним" />
+          <v-datetime-picker
+            v-model="form.created_at"
+            label="Выберите время"
+            time-format="HH:mm:ss"
+            clear-text="Очистить"
+            ok-text="Выбрать"
+            :dialog-width="500"
+            :date-picker-props="dateTimeConfig.dateOptions"
+            :time-picker-props="dateTimeConfig.timeOptions"
+          >
+            <v-icon slot="dateIcon">
+              mdi-calendar
+            </v-icon>
+            <v-icon slot="timeIcon">
+              mdi-clock-time-four-outline
+            </v-icon>
+          </v-datetime-picker>
+          <label>Содержимое страницы</label>
+          <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
+          <v-text-field v-model="form.md" label="Мета-описание" />
+          <v-text-field v-model="form.mk" label="Ключевые слова" />
+          <div>
+            <v-checkbox v-model="form.is_public" label="Опубликовать запись" class="d-inline-block" hide-details />
+          </div>
+          <v-btn type="submit" color="primary" class="mt-3" rounded>
             Сохранить
-          </md-button>
-        </div>
-      </form>
-    </md-card-content>
-  </md-card>
+          </v-btn>
+        </form>
+      </v-card-text>
+    </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+  </v-container>
 </template>
 
 <script>
@@ -47,6 +49,7 @@ import { edit, update } from '../../api/api'
 import CKEditor from 'ckeditor4-vue'
 import ckeditor from '../../api/ckeditor'
 import showErrors from '../../mixins/showErrors'
+import dateTimeConfig from '../../api/datetimepicker'
 export default {
   name: 'PageEdit',
   components: {
@@ -55,6 +58,7 @@ export default {
   mixins: [showErrors],
   data() {
     return {
+      loading: false,
       form: {
         title: null,
         slug: null,
@@ -64,7 +68,8 @@ export default {
         created_at: null,
         is_public: 0
       },
-      ckeditor
+      ckeditor,
+      dateTimeConfig
     }
   },
   created() {
@@ -72,8 +77,11 @@ export default {
   },
   methods: {
     getPage() {
+      this.loading = true
       edit('pages', this.$route.params.id).then((res) => {
         this.form = res.data.page
+      }).finally(() => {
+        this.loading = false
       })
     },
     save() {

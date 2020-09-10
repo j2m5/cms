@@ -1,160 +1,160 @@
 const items = [
   {
     path: '/dashboard',
-    icon: 'home',
+    icon: 'mdi-home',
     label: 'Главная',
     permission: 3,
     children: []
   },
   {
     path: '/categories',
-    icon: 'folder',
+    icon: 'mdi-folder',
     label: 'Разделы',
     permission: 4,
     children: [
       {
         path: '/categories/create',
-        icon: 'nav-icon fas fa-plus',
+        icon: '',
         label: 'Добавить новый'
       },
       {
         path: '/categories',
-        icon: 'nav-icon fas fa-file-alt',
+        icon: '',
         label: 'Показать все'
       }
     ]
   },
   {
     path: '/posts',
-    icon: 'edit',
+    icon: 'mdi-pencil',
     label: 'Записи',
     permission: 3,
     children: [
       {
         path: '/posts/create',
-        icon: 'nav-icon fas fa-plus',
+        icon: '',
         label: 'Добавить новую'
       },
       {
         path: '/posts',
-        icon: 'nav-icon fas fa-file-alt',
+        icon: '',
         label: 'Показать все'
       }
     ]
   },
   {
     path: '/tags',
-    icon: 'bookmarks',
+    icon: 'mdi-tag-multiple',
     label: 'Теги',
     permission: 3,
     children: [
       {
         path: '/tags/create',
-        icon: 'nav-icon fas fa-plus',
+        icon: '',
         label: 'Добавить новый'
       },
       {
         path: '/tags',
-        icon: 'nav-icon fas fa-file-alt',
+        icon: '',
         label: 'Показать все'
       }
     ]
   },
   {
     path: '/users',
-    icon: 'people_alt',
+    icon: 'mdi-account',
     label: 'Пользователи',
     permission: 4,
     children: [
       {
         path: '/users/create',
-        icon: 'nav-icon fas fa-plus',
+        icon: '',
         label: 'Добавить нового'
       },
       {
         path: '/users',
-        icon: 'nav-icon fas fa-file-alt',
+        icon: '',
         label: 'Показать все'
       }
     ]
   },
   {
     path: '/pages',
-    icon: 'file_copy',
+    icon: 'mdi-book-open-page-variant',
     label: 'Страницы',
     permission: 4,
     children: [
       {
         path: '/pages/create',
-        icon: 'nav-icon fas fa-plus',
+        icon: '',
         label: 'Добавить новую'
       },
       {
         path: '/pages',
-        icon: 'nav-icon fas fa-file-alt',
+        icon: '',
         label: 'Показать все'
       }
     ]
   },
   {
     path: '/comments',
-    icon: 'mode_comment',
+    icon: 'mdi-chat',
     label: 'Комментарии',
     permission: 3,
     children: []
   },
   {
     path: '/menus',
-    icon: 'menu',
+    icon: 'mdi-menu',
     label: 'Меню',
     permission: 4,
     children: []
   },
   {
     path: '/events',
-    icon: 'timeline',
+    icon: 'mdi-chart-timeline-variant',
     label: 'События',
     permission: 4,
     children: []
   },
   {
     path: '/tickets',
-    icon: 'help_outline',
+    icon: 'mdi-help-circle',
     label: 'Поддержка',
     permission: 4,
     children: []
   },
   {
     path: '/files',
-    icon: 'insert_photo',
+    icon: 'mdi-file',
     label: 'Файлы',
     permission: 3,
     children: []
   },
   {
     path: '/trash',
-    icon: 'delete',
+    icon: 'mdi-delete',
     label: 'Корзина',
     permission: 3,
     children: []
   },
   {
     path: '/tools',
-    icon: 'handyman',
+    icon: 'mdi-hammer-screwdriver',
     label: 'Инструменты',
     permission: 4,
     children: []
   },
   {
     path: '/themes',
-    icon: 'brush',
+    icon: 'mdi-brush',
     label: 'Внешний вид',
     permission: 4,
     children: []
   },
   {
     path: '/settings',
-    icon: 'settings',
+    icon: 'mdi-cog',
     label: 'Настройки',
     permission: 4,
     children: []
