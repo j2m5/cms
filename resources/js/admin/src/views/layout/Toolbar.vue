@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" color="indigo darken-2" app dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" src="/dist/assets/bg.jpg" app dark>
     <v-app-bar-nav-icon @click="updateDrawer" />
     <v-toolbar-title>{{ siteName }}</v-toolbar-title>
   </v-app-bar>

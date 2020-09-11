@@ -59,6 +59,7 @@
           <v-pagination
             v-model="query.page"
             :length="tags.last_page"
+            :total-visible="11"
             circle
             @input="getTags"
           />
@@ -109,5 +110,7 @@ export default {
 </script>
 
 <style scoped>
-
+.w-100 {
+    width: 100%;
+}
 </style>

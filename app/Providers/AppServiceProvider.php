@@ -37,11 +37,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // TODO при массовом сидинге тестовых данных глушим обсерверы!
-        BlogPost::observe(BlogPostObserver::class);
+        /*BlogPost::observe(BlogPostObserver::class);
         BlogCategory::observe(BlogCategoryObserver::class);
         BlogComment::observe(BlogCommentObserver::class);
         User::observe(UserObserver::class);
         Tag::observe(TagObserver::class);
-        Page::observe(PageObserver::class);
+        Page::observe(PageObserver::class);*/
     }
 }

@@ -59,6 +59,7 @@
           <v-pagination
             v-model="query.page"
             :length="categories.last_page"
+            :total-visible="11"
             circle
             @input="getCategories"
           />

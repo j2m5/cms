@@ -67,6 +67,7 @@
           <v-pagination
             v-model="query.page"
             :length="posts.last_page"
+            :total-visible="11"
             circle
             @input="getPosts"
           />
@@ -117,5 +118,7 @@ export default {
 </script>
 
 <style scoped>
-
+.w-100 {
+    width: 100%;
+}
 </style>

@@ -4,6 +4,7 @@
 
 use App\Models\BlogPost;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(BlogPost::class, function (Faker $faker) {
     $title = $faker->sentence(rand(3, 8), true);
@@ -11,18 +12,16 @@ $factory->define(BlogPost::class, function (Faker $faker) {
     $isPublic = 1;
     $createdAt = $faker->dateTimeBetween('-2 months', '-1 days');
 
-    $data = [
-        'category_id' => rand(1, 11),
+    return [
+        'category_id' => 1,
         'user_id' => 1,
         'title' => $title,
-        'slug' => Str::slug($title),
+        'slug' => Str::slug($title).'-'.Str::random(50),
         'excerpt' => $faker->text(rand(40, 100)),
         'content' => $txt,
         'is_public' => $isPublic,
         'created_at' => $createdAt,
         'updated_at' => $createdAt,
-        'deleted_at' => $createdAt
+        'deleted_at' => null // $createdAt
     ];
-
-    return $data;
 });

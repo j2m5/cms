@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ];
-        $post = [
+        /*$post = [
             'category_id' => 1,
             'user_id' => 1,
             'title' => 'Hello world!',
@@ -94,7 +94,7 @@ class DatabaseSeeder extends Seeder
             'content' => 'Тестовый комментарий',
             'created_at' => now(),
             'updated_at' => now()
-        ];
+        ];*/
         $events = [
             [
                 'model' => 'User',
@@ -247,8 +247,8 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert($user);
         DB::table('ticket_categories')->insert($ticket_categories);
         DB::table('blog_categories')->insert($category);
-        DB::table('blog_posts')->insert($post);
-        DB::table('blog_comments')->insert($comment);
+        //DB::table('blog_posts')->insert($post);
+        //DB::table('blog_comments')->insert($comment);
         DB::table('events')->insert($events);
         DB::table('settings')->insert($settings);
         DB::table('menu_item_types')->insert($menu_item_types);
@@ -258,10 +258,11 @@ class DatabaseSeeder extends Seeder
          */
         //factory(App\Models\User::class, 1000)->create();
         //factory(App\Models\BlogCategory::class, 500)->create();
-        //factory(App\Models\BlogPost::class, 1000)->create();
+        factory(App\Models\BlogPost::class, 50000)->create();
         //factory(App\Models\BlogComment::class, 5000)->create();
         //$this->call(BlogCategoriesTableSeeder::class);
         //factory(App\Models\BlogPost::class, 100)->create();
         //factory(App\Models\BlogComment::class, 100)->create();
+        factory(App\Models\Ticket::class, 10000)->create();
     }
 }

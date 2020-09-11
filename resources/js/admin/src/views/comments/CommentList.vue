@@ -63,6 +63,7 @@
           <v-pagination
             v-model="query.page"
             :length="comments.last_page"
+            :total-visible="11"
             circle
             @input="getComments"
           />
@@ -115,5 +116,7 @@ export default {
 </script>
 
 <style scoped>
-
+.w-100 {
+    width: 100%;
+}
 </style>

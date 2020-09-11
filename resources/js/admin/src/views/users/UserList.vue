@@ -67,6 +67,7 @@
           <v-pagination
             v-model="query.page"
             :length="users.last_page"
+            :total-visible="11"
             circle
             @input="getUsers"
           />
@@ -119,5 +120,7 @@ export default {
 </script>
 
 <style scoped>
-
+.w-100 {
+    width: 100%;
+}
 </style>

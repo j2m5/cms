@@ -26,7 +26,8 @@ const opts = {
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FB8C00'
+        warning: '#FB8C00',
+        background: '#EEEEEE'
       },
       dark: {
         primary: '#2196F3',

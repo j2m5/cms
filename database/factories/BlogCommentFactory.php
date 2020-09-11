@@ -9,15 +9,13 @@ $factory->define(BlogComment::class, function (Faker $faker) {
     $txt = $faker->realText(rand(50, 250));
     $createdAt = $faker->dateTimeBetween('-2 months', '-1 days');
 
-    $data = [
+    return [
         'post_id' => rand(1, 100),
         'parent_id' => 0,
         'user_id' => 1,
         'content' => $txt,
         'created_at' => $createdAt,
         'updated_at' => $createdAt,
-        'deleted_at' => $createdAt
+        'deleted_at' => null //$createdAt
     ];
-
-    return $data;
 });
