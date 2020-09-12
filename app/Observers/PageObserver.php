@@ -42,19 +42,7 @@ class PageObserver
      */
     public function created(Page $page)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'Page',
-            'event_type' => 'created',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $page->title,
-                'add' => $page->content,
-                'action' => 'опубликовал страницу',
-                'css' => 'fas fa-copy bg-success'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -89,19 +77,7 @@ class PageObserver
      */
     public function updated(Page $page)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'Page',
-            'event_type' => 'updated',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $page->title,
-                'add' => $page->content,
-                'action' => 'обновил страницу',
-                'css' => 'fas fa-copy bg-primary'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -112,19 +88,7 @@ class PageObserver
      */
     public function deleted(Page $page)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'Page',
-            'event_type' => 'trashed',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $page->title,
-                'add' => null,
-                'action' => 'переместил страницу в корзину',
-                'css' => 'fas fa-copy bg-warning'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -135,19 +99,7 @@ class PageObserver
      */
     public function restored(Page $page)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'Page',
-            'event_type' => 'restored',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $page->title,
-                'add' => null,
-                'action' => 'восстановил страницу',
-                'css' => 'fas fa-copy bg-primary'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -158,18 +110,6 @@ class PageObserver
      */
     public function forceDeleted(Page $page)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'Page',
-            'event_type' => 'deleted',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $page->title,
-                'add' => null,
-                'action' => 'удалил страницу',
-                'css' => 'fas fa-copy bg-danger'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 }

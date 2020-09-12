@@ -34,19 +34,7 @@ class BlogPostObserver
      */
     public function created(BlogPost $blogPost)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogPost',
-            'event_type' => 'created',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogPost->title,
-                'add' => $blogPost->excerpt,
-                'action' => 'опубликовал запись',
-                'css' => 'fas fa-pencil-alt bg-success'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -74,19 +62,7 @@ class BlogPostObserver
      */
     public function updated(BlogPost $blogPost)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogPost',
-            'event_type' => 'updated',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogPost->title,
-                'add' => $blogPost->excerpt,
-                'action' => 'обновил запись',
-                'css' => 'fas fa-pencil-alt bg-primary'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -97,19 +73,7 @@ class BlogPostObserver
      */
     public function deleted(BlogPost $blogPost)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogPost',
-            'event_type' => 'trashed',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogPost->title,
-                'add' => null,
-                'action' => 'переместил запись в корзину',
-                'css' => 'fas fa-pencil-alt bg-warning'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -120,19 +84,7 @@ class BlogPostObserver
      */
     public function restored(BlogPost $blogPost)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogPost',
-            'event_type' => 'restored',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogPost->title,
-                'add' => null,
-                'action' => 'восстановил запись',
-                'css' => 'fas fa-pencil-alt bg-primary'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -143,19 +95,6 @@ class BlogPostObserver
      */
     public function forceDeleted(BlogPost $blogPost)
     {
-        $blogPost->tags()->detach();
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogPost',
-            'event_type' => 'deleted',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogPost->title,
-                'add' => null,
-                'action' => 'удалил запись',
-                'css' => 'fas fa-pencil-alt bg-danger'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 }

@@ -111,13 +111,6 @@ const items = [
     children: []
   },
   {
-    path: '/events',
-    icon: 'mdi-chart-timeline-variant',
-    label: 'События',
-    permission: 4,
-    children: []
-  },
-  {
     path: '/tickets',
     icon: 'mdi-help-circle',
     label: 'Поддержка',

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogCommentRepository;
 use App\Repositories\BlogPostRepository;
-use App\Repositories\EventRepository;
 use App\Repositories\MenuItemRepository;
 use App\Repositories\MenuItemTypeRepository;
 use App\Repositories\MenuRepository;
@@ -28,7 +27,6 @@ abstract class BaseController extends Controller
     protected $userRepository;
     protected $tagRepository;
     protected $settingRepository;
-    protected $eventRepository;
     protected $ticketCategoryRepository;
     protected $ticketRepository;
     protected $ticketMessageRepository;
@@ -46,7 +44,6 @@ abstract class BaseController extends Controller
         $this->userRepository = app(UserRepository::class);
         $this->tagRepository = app(TagRepository::class);
         $this->settingRepository = app(SettingRepository::class);
-        $this->eventRepository = app(EventRepository::class);
         $this->ticketCategoryRepository = app(TicketCategoryRepository::class);
         $this->ticketRepository = app(TicketRepository::class);
         $this->ticketMessageRepository = app(TicketMessageRepository::class);

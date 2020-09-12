@@ -35,19 +35,7 @@ class BlogCategoryObserver
      */
     public function created(BlogCategory $blogCategory)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogCategory',
-            'event_type' => 'created',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogCategory->title,
-                'add' => $blogCategory->description ?? null,
-                'action' => 'создал раздел',
-                'css' => 'fas fa-folder-open bg-success'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -75,19 +63,7 @@ class BlogCategoryObserver
      */
     public function updated(BlogCategory $blogCategory)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogCategory',
-            'event_type' => 'updated',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogCategory->title,
-                'add' => $blogCategory->description ?? null,
-                'action' => 'обновил раздел',
-                'css' => 'fas fa-folder-open bg-primary'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -98,19 +74,7 @@ class BlogCategoryObserver
      */
     public function deleted(BlogCategory $blogCategory)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogCategory',
-            'event_type' => 'trashed',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogCategory->title,
-                'add' => null,
-                'action' => 'переместил в корзину раздел',
-                'css' => 'fas fa-folder-open bg-warning'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -121,19 +85,7 @@ class BlogCategoryObserver
      */
     public function restored(BlogCategory $blogCategory)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogCategory',
-            'event_type' => 'restored',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogCategory->title,
-                'add' => null,
-                'action' => 'восстановил раздел',
-                'css' => 'fas fa-folder-open bg-primary'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 
     /**
@@ -144,18 +96,6 @@ class BlogCategoryObserver
      */
     public function forceDeleted(BlogCategory $blogCategory)
     {
-        $event = new Event();
-        $event->create([
-            'model' => 'BlogCategory',
-            'event_type' => 'deleted',
-            'data' => [
-                'user' => auth()->user()->login,
-                'target' => $blogCategory->title,
-                'add' => null,
-                'action' => 'удалил раздел',
-                'css' => 'fas fa-folder-open bg-danger'
-            ],
-            'range' => getRange(Carbon::now())
-        ])->toJson();
+        //
     }
 }

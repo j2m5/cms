@@ -95,64 +95,6 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ];*/
-        $events = [
-            [
-                'model' => 'User',
-                'event_type' => 'created',
-                'data' => jsonEncode([
-                    'user' => 'admin',
-                    'target' => 'admin',
-                    'add' => null,
-                    'action' => 'зарегистрировался',
-                    'css' => 'fas fa-user bg-success'
-                ]),
-                'range' => getRange(now()),
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'model' => 'BlogCategory',
-                'event_type' => 'created',
-                'data' => jsonEncode([
-                    'user' => 'admin',
-                    'target' => 'Тестовый раздел',
-                    'add' => null,
-                    'action' => 'создал раздел',
-                    'css' => 'fas fa-folder-open bg-success'
-                ]),
-                'range' => getRange(now()),
-                'created_at' => now()->addSeconds(1),
-                'updated_at' => now()->addSeconds(1)
-            ],
-            [
-                'model' => 'BlogPost',
-                'event_type' => 'created',
-                'data' => jsonEncode([
-                    'user' => 'admin',
-                    'target' => 'Hello world!',
-                    'add' => 'Тестовая запись для ознакомления...',
-                    'action' => 'опубликовал запись',
-                    'css' => 'fas fa-pencil-alt bg-success'
-                ]),
-                'range' => getRange(now()),
-                'created_at' => now()->addSeconds(2),
-                'updated_at' => now()->addSeconds(2)
-            ],
-            [
-                'model' => 'BlogComment',
-                'event_type' => 'created',
-                'data' => jsonEncode([
-                    'user' => 'admin',
-                    'target' => '#1 комментарий',
-                    'add' => 'Тестовый комментарий',
-                    'action' => 'написал комментарий',
-                    'css' => 'fas fa-comments bg-success'
-                ]),
-                'range' => getRange(now()),
-                'created_at' => now()->addSeconds(3),
-                'updated_at' => now()->addSeconds(3)
-            ]
-        ];
         $settings = [
             [
                 'name' => 'site_name',
@@ -249,7 +191,6 @@ class DatabaseSeeder extends Seeder
         DB::table('blog_categories')->insert($category);
         //DB::table('blog_posts')->insert($post);
         //DB::table('blog_comments')->insert($comment);
-        DB::table('events')->insert($events);
         DB::table('settings')->insert($settings);
         DB::table('menu_item_types')->insert($menu_item_types);
 
