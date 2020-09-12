@@ -516,6 +516,14 @@ const routes = [
     }
   },
   {
+    path: '/trash',
+    name: 'trash',
+    component: () => import('../views/trash/TrashList'),
+    meta: {
+      permission: 3
+    }
+  },
+  {
     path: '/tools',
     name: 'tools',
     component: () => import('../views/tools/'),

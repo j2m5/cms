@@ -11,6 +11,7 @@ $factory->define(BlogPost::class, function (Faker $faker) {
     $txt = $faker->realText(rand(1000, 4000));
     $isPublic = 1;
     $createdAt = $faker->dateTimeBetween('-2 months', '-1 days');
+    $rand = mt_rand(1, 3);
 
     return [
         'category_id' => 1,
@@ -22,6 +23,6 @@ $factory->define(BlogPost::class, function (Faker $faker) {
         'is_public' => $isPublic,
         'created_at' => $createdAt,
         'updated_at' => $createdAt,
-        'deleted_at' => null // $createdAt
+        'deleted_at' => ($rand === 3) ? $createdAt : null
     ];
 });

@@ -2,21 +2,23 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\BlogCategory;
+use App\Models\Page;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
-$factory->define(BlogCategory::class, function (Faker $faker) {
+$factory->define(Page::class, function (Faker $faker) {
     $title = $faker->sentence(rand(3, 8), true);
-    $text = $faker->realText(rand(50, 250));
+    $txt = $faker->realText(rand(1000, 4000));
+    $isPublic = 1;
     $createdAt = $faker->dateTimeBetween('-2 months', '-1 days');
     $rand = mt_rand(1, 3);
 
     return [
-        'parent_id' => 0,
-        'slug' => Str::random(30),
+        'user_id' => 1,
         'title' => $title,
-        'description' => $text,
+        'slug' => Str::slug($title).'-'.Str::random(50),
+        'content' => $txt,
+        'is_public' => $isPublic,
         'created_at' => $createdAt,
         'updated_at' => $createdAt,
         'deleted_at' => ($rand === 3) ? $createdAt : null
