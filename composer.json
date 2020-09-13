@@ -19,6 +19,7 @@
         "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
+        "unisharp/laravel-filemanager": "^2.1",
         "watson/sitemap": "^3.0"
     },
     "require-dev": {

@@ -18,6 +18,6 @@ class AccessAdmin
         if ($request->user()->accessAdmin()) {
             return $next($request);
         }
-        return redirect('/');
+        return abort(404);
     }
 }

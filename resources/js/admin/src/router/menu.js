@@ -118,13 +118,6 @@ const items = [
     children: []
   },
   {
-    path: '/files',
-    icon: 'mdi-file',
-    label: 'Файлы',
-    permission: 3,
-    children: []
-  },
-  {
     path: '/trash',
     icon: 'mdi-delete',
     label: 'Корзина',

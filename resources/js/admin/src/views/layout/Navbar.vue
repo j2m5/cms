@@ -37,6 +37,8 @@ export default {
   computed: {
     allowedItems() {
       return items
+      // TODO использовать фильтрованные пункты меню когда гварды vue-роутера будут корректно работать
+      // return items.filter(x => x.permission <= this.user.role_id)
     },
     drawer: {
       get() {
@@ -46,6 +48,9 @@ export default {
         this.setDrawer = val
       }
     }
+  },
+  created() {
+    this.$store.dispatch('getUser')
   }
 }
 </script>

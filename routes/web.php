@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,6 @@ Route::group(['namespace' => 'Blog'], function() {
     Route::get('/pages/{slug}', 'PageController@show')->name('blog.pages.show');
 });
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth', 'access-admin']], function () {
+    Lfm::routes();
+});
