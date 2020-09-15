@@ -106,11 +106,15 @@ export default {
       })
     },
     del(id) {
-      destroy('posts', id).then((res) => {
-        this.$toast.success(res.data.success)
-        this.getPosts()
-      }).catch(() => {
-        this.$toast.warning('Произошла ошибка')
+      this.$confirm('Вы уверены что хотите удалить запись? (также будут удалены все связанные комментарии)').then((e) => {
+        if (e) {
+          destroy('posts', id).then((res) => {
+            this.$toast.success(res.data.success)
+            this.getPosts()
+          }).catch(() => {
+            this.$toast.warning('Произошла ошибка')
+          })
+        }
       })
     }
   }

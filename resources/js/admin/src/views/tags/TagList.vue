@@ -98,11 +98,15 @@ export default {
       })
     },
     del(id) {
-      destroy('tags', id).then((res) => {
-        this.$toast.success(res.data.success)
-        this.getTags()
-      }).catch(() => {
-        this.$toast.warning('Произошла ошибка')
+      this.$confirm('Вы уверены что хотите удалить тег?').then((e) => {
+        if (e) {
+          destroy('tags', id).then((res) => {
+            this.$toast.success(res.data.success)
+            this.getTags()
+          }).catch(() => {
+            this.$toast.warning('Произошла ошибка')
+          })
+        }
       })
     }
   }

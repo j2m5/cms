@@ -102,11 +102,15 @@ export default {
       })
     },
     del(id) {
-      destroy('pages', id).then((res) => {
-        this.$toast.success(res.data.success)
-        this.getPages()
-      }).catch(() => {
-        this.$toast.warning('Произошла ошибка')
+      this.$confirm('Вы уверены что хотите удалить страницу?').then((e) => {
+        if (e) {
+          destroy('pages', id).then((res) => {
+            this.$toast.success(res.data.success)
+            this.getPages()
+          }).catch(() => {
+            this.$toast.warning('Произошла ошибка')
+          })
+        }
       })
     }
   }

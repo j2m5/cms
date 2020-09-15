@@ -91,11 +91,15 @@ export default {
       })
     },
     del() {
-      destroy('users', this.$route.params.id).then((res) => {
-        this.$toast.success(res.data.success)
-        this.$router.push({ name: 'users' })
-      }).catch((err) => {
-        this.$toast.warning(err.response.data.errors)
+      this.$confirm('Вы уверены что хотите удалить пользователя?').then((e) => {
+        if (e) {
+          destroy('users', this.$route.params.id).then((res) => {
+            this.$toast.success(res.data.success)
+            this.$router.push({ name: 'users' })
+          }).catch((err) => {
+            this.$toast.warning(err.response.data.errors)
+          })
+        }
       })
     },
     generatePassword() {

@@ -98,11 +98,15 @@ export default {
       })
     },
     del(id) {
-      destroy('categories', id).then((res) => {
-        this.$toast.success(res.data.success)
-        this.getCategories()
-      }).catch(() => {
-        this.$toast.warning('Произошла ошибка')
+      this.$confirm('Вы уверены что хотите удалить раздел? (также будут удалены все связанные записи и комментарии)').then((e) => {
+        if (e) {
+          destroy('categories', id).then((res) => {
+            this.$toast.success(res.data.success)
+            this.getCategories()
+          }).catch(() => {
+            this.$toast.warning('Произошла ошибка')
+          })
+        }
       })
     }
   }

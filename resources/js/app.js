@@ -22,6 +22,16 @@ Vue.use(VueToast, {
 import DatetimePicker from 'vuetify-datetime-picker'
 Vue.use(DatetimePicker)
 
+import VuetifyConfirm from 'vuetify-confirm'
+Vue.use(VuetifyConfirm, {
+  vuetify,
+  buttonTrueText: 'Да',
+  buttonFalseText: 'Отмена',
+  color: 'error',
+  icon: 'mdi-alert',
+  title: 'Внимание'
+})
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

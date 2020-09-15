@@ -45,10 +45,10 @@
                 <td>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-btn v-if="!user.banned" color="error" fab x-small v-bind="attrs" v-on="on" @click="ban(user.id)">
+                      <v-btn v-if="!user.banned" color="error" fab x-small v-bind="attrs" v-on="on" @click="ban(user.id, 'забанить')">
                         <v-icon>mdi-cancel</v-icon>
                       </v-btn>
-                      <v-btn v-else color="success" fab x-small v-bind="attrs" v-on="on" @click="ban(user.id)">
+                      <v-btn v-else color="success" fab x-small v-bind="attrs" v-on="on" @click="ban(user.id, 'разбанить')">
                         <v-icon>mdi-check-circle-outline</v-icon>
                       </v-btn>
                     </template>
@@ -107,12 +107,16 @@ export default {
         this.loading = false
       })
     },
-    ban(id) {
-      patchRequest('users/' + id + '/ban').then((res) => {
-        this.$toast.success(res.data.success)
-        this.getUsers()
-      }).catch((err) => {
-        this.$toast.warning(err.response.data.errors)
+    ban(id, action) {
+      this.$confirm('Вы уверены что хотите ' + action + ' пользователя?').then((e) => {
+        if (e) {
+          patchRequest('users/' + id + '/ban').then((res) => {
+            this.$toast.success(res.data.success)
+            this.getUsers()
+          }).catch((err) => {
+            this.$toast.warning(err.response.data.errors)
+          })
+        }
       })
     }
   }
