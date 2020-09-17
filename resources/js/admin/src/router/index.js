@@ -150,6 +150,22 @@ const routes = [
     }
   },
   {
+    path: '/menus',
+    name: 'menus',
+    component: () => import('../views/menus/MenuList'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
+    path: '/menus/:id/edit',
+    name: 'menus.edit',
+    component: () => import('../views/menus/MenuEdit'),
+    meta: {
+      permission: 4
+    }
+  },
+  {
     path: '/tickets',
     name: 'tickets',
     component: () => import('../views/tickets/TicketList'),

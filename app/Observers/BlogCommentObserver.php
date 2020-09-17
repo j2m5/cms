@@ -3,8 +3,6 @@
 namespace App\Observers;
 
 use App\Models\BlogComment;
-use App\Models\Event;
-use Illuminate\Support\Carbon;
 
 class BlogCommentObserver
 {

@@ -3,8 +3,6 @@
 namespace App\Observers;
 
 use App\Models\BlogCategory;
-use App\Models\Event;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class BlogCategoryObserver
@@ -30,7 +28,6 @@ class BlogCategoryObserver
      * Handle the blog category "created" event.
      *
      * @param  \App\Models\BlogCategory  $blogCategory
-     * @param Event $event
      * @return void
      */
     public function created(BlogCategory $blogCategory)

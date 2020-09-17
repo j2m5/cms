@@ -3,9 +3,7 @@
 namespace App\Observers;
 
 use App\Models\BlogPost;
-use App\Models\Event;
 use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 
 class BlogPostObserver
 {

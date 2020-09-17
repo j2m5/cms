@@ -2,9 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Event;
 use App\Models\Page;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class PageObserver

@@ -188,23 +188,23 @@ class DatabaseSeeder extends Seeder
         DB::table('roles')->insert($roles);
         DB::table('users')->insert($user);
         DB::table('ticket_categories')->insert($ticket_categories);
-        //DB::table('blog_categories')->insert($category);
-        //DB::table('blog_posts')->insert($post);
-        //DB::table('blog_comments')->insert($comment);
+        DB::table('blog_categories')->insert($category);
+        DB::table('blog_posts')->insert($post);
+        DB::table('blog_comments')->insert($comment);
         DB::table('settings')->insert($settings);
         DB::table('menu_item_types')->insert($menu_item_types);
 
         /**
-         * Накатываем большое количество абстрактного контента
+         * Накатываем большое количество тестового контента
          */
         //factory(App\Models\User::class, 1000)->create();
-        factory(App\Models\BlogCategory::class, 1000)->create();
-        factory(App\Models\BlogPost::class, 30000)->create();
-        factory(App\Models\BlogComment::class, 50000)->create();
-        factory(App\Models\Page::class, 5000)->create();
+        //factory(App\Models\BlogCategory::class, 1000)->create();
+        //factory(App\Models\BlogPost::class, 30000)->create();
+        //factory(App\Models\BlogComment::class, 50000)->create();
+        //factory(App\Models\Page::class, 5000)->create();
         //$this->call(BlogCategoriesTableSeeder::class);
         //factory(App\Models\BlogPost::class, 100)->create();
         //factory(App\Models\BlogComment::class, 100)->create();
-        factory(App\Models\Ticket::class, 50000)->create();
+        //factory(App\Models\Ticket::class, 50000)->create();
     }
 }
