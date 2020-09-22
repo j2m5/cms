@@ -14,6 +14,11 @@
             </div>
             <menu-list-item :data="menu.menu_items" />
           </v-card-text>
+          <v-card-actions>
+            <v-btn :to="{ name: 'menus.edit', params: { id: menu.id } }" color="primary" rounded>
+              Изменить
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="6">

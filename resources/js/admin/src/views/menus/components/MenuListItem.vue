@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-    .tree-list {
-        margin-left: 20px;
-    }
+.tree-list {
+    margin-left: 20px;
+}
 </style>
