@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store'
+import { getRequest } from '../api/api'
 
 Vue.use(VueRouter)
 
@@ -453,8 +453,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.permission > store.getters.user.role_id) next({ name: 'NotFound' })
-  else next()
+  getRequest('auth-user').then((res) => {
+    if (to.meta.permission > res.data.user.role_id) next({ name: 'NotFound' })
+    else next()
+  })
 })
 
 export default router
