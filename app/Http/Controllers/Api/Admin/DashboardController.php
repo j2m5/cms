@@ -48,7 +48,6 @@ class DashboardController extends BaseController
 
     public function users(Request $request)
     {
-        // $interval = [now()->subYears(1)->startOfYear(), now()->startOfYear()];
         $interval = $request->input('interval');
         $months = $this->getMonths($interval);
         $columns = ['date', 'Всего', 'Пользователи', 'Потенциальные боты'];

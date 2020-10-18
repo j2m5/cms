@@ -31,11 +31,6 @@ export default {
       }
     }
   },
-  computed: {
-    intervalText() {
-      return this.interval.join(' => ')
-    }
-  },
   created() {
     this.getChart(this.interval)
   },
