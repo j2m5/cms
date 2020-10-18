@@ -197,7 +197,7 @@ class DatabaseSeeder extends Seeder
         /**
          * Накатываем большое количество тестового контента
          */
-        //factory(App\Models\User::class, 1000)->create();
+        factory(App\Models\User::class, 10000)->create();
         //factory(App\Models\BlogCategory::class, 1000)->create();
         //factory(App\Models\BlogPost::class, 30000)->create();
         //factory(App\Models\BlogComment::class, 50000)->create();

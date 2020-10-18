@@ -20,14 +20,10 @@ export default {
     },
     siteName() {
       return this.$store.getters.siteName
-    },
-    siteLogo() {
-      return this.$store.getters.siteLogo
     }
   },
   created() {
     this.$store.dispatch('getSiteName')
-    this.$store.dispatch('getSiteLogo')
   },
   methods: {
     updateDrawer() {

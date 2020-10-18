@@ -50,7 +50,7 @@ export default {
     save(id) {
       update('settings', id, { value: this.setValue }).then((res) => {
         this.$toast.success(res.data.success)
-        if (id === 3) this.$store.dispatch('updateSiteLogo', this.setValue)
+        if (id === 1) this.$store.dispatch('updateSiteName', this.setValue)
       }).catch((err) => {
         this.$toast.warning(err.response.data.errors)
       })

@@ -19,6 +19,11 @@
         <dashboard-card :count="countComments" model="комментариев" />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col md="12">
+        <user-chart />
+      </v-col>
+    </v-row>
     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64" />
     </v-overlay>
@@ -27,10 +32,11 @@
 
 <script>
 import { index } from '../../api/api'
+const UserChart = () => import('./components/UserChart')
 const DashboardCard = () => import('./components/DashboardCard')
 export default {
   name: 'Dashboard',
-  components: { DashboardCard },
+  components: { DashboardCard, UserChart },
   data() {
     return {
       loading: false,

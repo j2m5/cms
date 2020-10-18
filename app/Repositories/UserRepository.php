@@ -67,4 +67,27 @@ class UserRepository extends BaseRepository
             ->first();
     }
 
+    public function getUsersOfPeriod($start, $end)
+    {
+        return $this->startQuery()
+            ->select(['*'])
+            ->whereBetween('created_at', [$start, $end])
+            ->get()
+            ->pluck('created_at');
+    }
+
+    public function getFirstUser()
+    {
+        return $this->startQuery()
+            ->select(['*'])
+            ->first();
+    }
+
+    public function getLastUser()
+    {
+        return $this->startQuery()
+            ->select(['*'])
+            ->orderByDesc('id')
+            ->first();
+    }
 }
