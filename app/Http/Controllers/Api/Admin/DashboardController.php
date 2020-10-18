@@ -54,14 +54,12 @@ class DashboardController extends BaseController
         $rows = [];
         if (!empty($months)) {
             foreach ($months as $month_number => $month_name) {
-                $count = $this->getMonthlyUserCount($month_number, $interval)['all'];
-                $countUsers = $this->getMonthlyUserCount($month_number, $interval)['users'];
-                $countBots = $this->getMonthlyUserCount($month_number, $interval)['bots'];
+                $count = $this->getMonthlyUserCount($month_number, $interval);
                 $rows[] = [
                     'date' => $month_name,
-                    'Всего' => $count,
-                    'Пользователи' => $countUsers,
-                    'Потенциальные боты' => $countBots
+                    'Всего' => $count['all'],
+                    'Пользователи' => $count['users'],
+                    'Потенциальные боты' => $count['bots']
                 ];
             }
         }
