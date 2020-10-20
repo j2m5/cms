@@ -3,7 +3,7 @@
     <v-card-title>
       <div>Новые пользователи за выбранный интервал</div>
       <v-spacer />
-      <v-select v-model="interval" :items="years.grouped" label="Выберите интервал" @change="changeInterval" />
+      <v-select v-model="interval" :items="years.grouped" label="Выберите интервал" @change="getChart" />
     </v-card-title>
     <v-divider />
     <ve-line :loading="loading" :data="chartData" :settings="chartSettings" />
@@ -22,8 +22,7 @@ export default {
   data() {
     return {
       loading: false,
-      visible: false,
-      interval: [new Date().getFullYear() + '-01-01', new Date().toISOString().substr(0, 10)],
+      interval: new Date().getFullYear() + '-' + (Number(new Date().toISOString().substr(0, 4)) + 1),
       chartData: null,
       chartSettings: {
         stack: { 'sell': ['Всего', 'Пользователи', 'Потенциальные боты'] },
@@ -37,17 +36,17 @@ export default {
   methods: {
     getChart(interval) {
       this.loading = true
-      getRequest('dashboard/users', { params: { interval: interval }}).then((res) => {
+      interval = this.prepareDates(interval)
+      getRequest('dashboard/users', { params: { interval }}).then((res) => {
         this.chartData = res.data || []
       }).finally(() => {
         this.loading = false
-        if (this.visible) this.visible = false
       })
     },
-    changeInterval(event) {
-      const interval = event.split('-')
+    prepareDates(interval) {
+      interval = interval.split('-')
       const startYear = '-01-01'
-      this.getChart([interval[0] + startYear, interval[1] + startYear])
+      return [interval[0] + startYear, interval[1] + startYear]
     }
   }
 }
