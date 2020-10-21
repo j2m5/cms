@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <div>Новые пользователи за выбранный интервал</div>
+      <div>Новые комментарии за выбранный интервал</div>
       <v-spacer />
       <v-select v-model="interval" :items="years.grouped" label="Выберите интервал" @change="getChart" />
     </v-card-title>
@@ -17,7 +17,7 @@ import getYears from '../../../mixins/getYears'
 import getInterval from '../../../mixins/getInterval'
 import VeLine from 'v-charts/lib/line.common'
 export default {
-  name: 'UserChart',
+  name: 'CommentChart',
   components: { VeLine },
   mixins: [getYears, getInterval],
   data() {
@@ -25,7 +25,7 @@ export default {
       loading: false,
       chartData: null,
       chartSettings: {
-        stack: { 'sell': ['Всего', 'Пользователи', 'Потенциальные боты'] },
+        stack: { 'sell': ['Всего', 'Комментарии', 'Потенциальные комментарии ботов'] },
         area: true
       }
     }
@@ -37,7 +37,7 @@ export default {
     getChart(interval) {
       this.loading = true
       interval = this.getInterval(interval)
-      getRequest('dashboard/users', { params: { interval }}).then((res) => {
+      getRequest('dashboard/comments', { params: { interval }}).then((res) => {
         this.chartData = res.data || []
       }).finally(() => {
         this.loading = false

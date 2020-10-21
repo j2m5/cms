@@ -22,6 +22,7 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'middleware' => ['au
 Route::group(['prefix' => '/admin', 'namespace' => 'Api\Admin', 'middleware' => ['auth:api']], function() {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/dashboard/users', 'DashboardController@users')->name('dashboard.users');
+    Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard.comments');
     Route::get('/dashboard/years', 'DashboardController@getSiteExistingYears')->name('dashboard.years');
     Route::resource('/categories', 'BlogCategoryController', ['parameters' => ['categories' => 'id'], 'except' => ['show']]);
     Route::resource('/comments', 'BlogCommentController', ['parameters' => ['comments' => 'id'], 'only' => ['index', 'edit', 'update', 'destroy']]);

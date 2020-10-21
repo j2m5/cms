@@ -24,6 +24,11 @@
         <user-chart />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col md="12">
+        <comment-chart />
+      </v-col>
+    </v-row>
     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64" />
     </v-overlay>
@@ -32,11 +37,12 @@
 
 <script>
 import { index } from '../../api/api'
-const UserChart = () => import('./components/UserChart')
 const DashboardCard = () => import('./components/DashboardCard')
+const UserChart = () => import('./components/UserChart')
+const CommentChart = () => import('./components/CommentChart')
 export default {
   name: 'Dashboard',
-  components: { DashboardCard, UserChart },
+  components: { DashboardCard, UserChart, CommentChart },
   data() {
     return {
       loading: false,
