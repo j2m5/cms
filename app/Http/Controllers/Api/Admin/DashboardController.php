@@ -72,16 +72,14 @@ class DashboardController extends BaseController
     {
         $interval = $request->input('interval');
         $months = $this->getMonths($interval);
-        $columns = ['date', 'Всего', 'Комментарии', 'Потенциальные комментарии ботов'];
+        $columns = ['date', 'Всего'];
         $rows = [];
         if (!empty($months)) {
             foreach ($months as $month_number => $month_name) {
                 $count = $this->getMonthlyCommentCount($month_number, $interval);
                 $rows[] = [
                     'date' => $month_name,
-                    'Всего' => $count['all'],
-                    'Комментарии' => $count['comments'],
-                    'Потенциальные комментарии ботов' => $count['bots']
+                    'Всего' => $count,
                 ];
             }
         }

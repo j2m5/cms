@@ -25,17 +25,7 @@ trait ChartHelper
 
     private function getMonthlyCommentCount($month, $interval)
     {
-        $data = BlogComment::whereBetween('created_at', $interval)->whereMonth('created_at', $month)->get();
-        $popularMails = $this->popularMails();
-        $comments = $data->filter(function ($comment) use ($popularMails) {
-            $mailProvider = explode('@', $comment->user->email);
-            return in_array($mailProvider[1], $popularMails);
-        });
-        $bots = $data->filter(function ($comment) use ($popularMails) {
-            $mailProvider = explode('@', $comment->user->email);
-            return !in_array($mailProvider[1], $popularMails);
-        });
-        return ['all' => $data->count(), 'comments' => $comments->count(), 'bots' => $bots->count()];
+        return BlogComment::whereBetween('created_at', $interval)->whereMonth('created_at', $month)->count();
     }
 
     private function getMonths($interval)

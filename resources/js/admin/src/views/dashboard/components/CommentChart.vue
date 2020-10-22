@@ -25,7 +25,7 @@ export default {
       loading: false,
       chartData: null,
       chartSettings: {
-        stack: { 'sell': ['Всего', 'Комментарии', 'Потенциальные комментарии ботов'] },
+        stack: { 'sell': ['Всего'] },
         area: true
       }
     }
