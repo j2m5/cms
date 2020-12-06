@@ -119,16 +119,18 @@ export default {
       this.password = randomStr(16)
     },
     uploadAvatar() {
-      const form = new FormData()
-      form.append('avatar', this.avatar)
-      postRequest('users/' + this.form.id + '/upload', form, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }).then((res) => {
-        this.$toast.success(res.data.success)
-        this.$store.commit('updateUserAvatar', res.data.newAvatar)
-        this.avatar = null
-        this.getData()
-      })
+      if (this.avatar) {
+        const form = new FormData()
+        form.append('avatar', this.avatar)
+        postRequest('users/' + this.form.id + '/upload', form, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }).then((res) => {
+          this.$toast.success(res.data.success)
+          this.$store.commit('updateUserAvatar', res.data.newAvatar)
+          this.avatar = null
+          this.getData()
+        })
+      }
     }
   }
 }
