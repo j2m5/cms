@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-card style="margin-bottom: 10px;">
+      <v-container>
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getPosts" @click:clear="reset" />
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title class="headline">
         Записи
@@ -65,7 +70,7 @@
       <v-card-actions v-if="posts.total && posts.total > posts.per_page">
         <div class="text-center w-100">
           <v-pagination
-            v-model="query.page"
+            v-model="page"
             :length="posts.last_page"
             :total-visible="11"
             circle
@@ -87,9 +92,8 @@ export default {
   data() {
     return {
       loading: false,
-      query: {
-        page: 1
-      },
+      query: '',
+      page: 1,
       posts: []
     }
   },
@@ -99,11 +103,16 @@ export default {
   methods: {
     getPosts() {
       this.loading = true
-      index('posts', { params: { page: this.query.page }}).then((res) => {
+      index('posts', { params: { page: this.page, query: this.query }}).then((res) => {
         this.posts = res.data.posts || []
       }).finally(() => {
         this.loading = false
       })
+    },
+    reset() {
+      this.query = ''
+      this.page = 1
+      this.getPosts()
     },
     del(id) {
       this.$confirm('Вы уверены что хотите удалить запись? (также будут удалены все связанные комментарии)').then((e) => {

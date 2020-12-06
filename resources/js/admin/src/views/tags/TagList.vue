@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-card style="margin-bottom: 10px;">
+      <v-container>
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getTags" @click:clear="reset" />
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title class="headline">
         Теги
@@ -57,7 +62,7 @@
       <v-card-actions v-if="tags.total && tags.total > tags.per_page">
         <div class="text-center w-100">
           <v-pagination
-            v-model="query.page"
+            v-model="page"
             :length="tags.last_page"
             :total-visible="11"
             circle
@@ -79,9 +84,8 @@ export default {
   data() {
     return {
       loading: false,
-      query: {
-        page: 1
-      },
+      query: '',
+      page: 1,
       tags: []
     }
   },
@@ -91,11 +95,16 @@ export default {
   methods: {
     getTags() {
       this.loading = true
-      index('tags', { params: { page: this.query.page }}).then((res) => {
+      index('tags', { params: { page: this.page, query: this.query }}).then((res) => {
         this.tags = res.data.tags || []
       }).finally(() => {
         this.loading = false
       })
+    },
+    reset() {
+      this.query = ''
+      this.page = 1
+      this.getTags()
     },
     del(id) {
       this.$confirm('Вы уверены что хотите удалить тег?').then((e) => {

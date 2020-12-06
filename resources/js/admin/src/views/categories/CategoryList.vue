@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-card style="margin-bottom: 10px;">
+      <v-container>
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getCategories" @click:clear="reset" />
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title class="headline">
         Разделы
@@ -57,7 +62,7 @@
       <v-card-actions v-if="categories.total && categories.total > categories.per_page">
         <div class="text-center w-100">
           <v-pagination
-            v-model="query.page"
+            v-model="page"
             :length="categories.last_page"
             :total-visible="11"
             circle
@@ -79,9 +84,8 @@ export default {
   data() {
     return {
       loading: false,
-      query: {
-        page: 1
-      },
+      query: '',
+      page: 1,
       categories: []
     }
   },
@@ -91,11 +95,16 @@ export default {
   methods: {
     getCategories() {
       this.loading = true
-      index('categories', { params: { page: this.query.page }}).then((res) => {
+      index('categories', { params: { page: this.page, query: this.query }}).then((res) => {
         this.categories = res.data.categories || []
       }).finally(() => {
         this.loading = false
       })
+    },
+    reset() {
+      this.query = ''
+      this.page = 1
+      this.getCategories()
     },
     del(id) {
       this.$confirm('Вы уверены что хотите удалить раздел? (также будут удалены все связанные записи и комментарии)').then((e) => {

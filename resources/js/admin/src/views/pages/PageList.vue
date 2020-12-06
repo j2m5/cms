@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-card style="margin-bottom: 10px;">
+      <v-container>
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getPages" @click:clear="reset" />
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title class="headline">
         Страницы
@@ -31,21 +36,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(page, key) in pages.data" :key="key">
-                <td>{{ page.id }}</td>
-                <td>{{ page.user.login }}</td>
+              <tr v-for="(item, key) in pages.data" :key="key">
+                <td>{{ item.id }}</td>
+                <td>{{ item.user.login }}</td>
                 <td>
-                  <router-link :to="{ name: 'pages.edit', params: { id: page.id } }">
-                    {{ page.title }}
+                  <router-link :to="{ name: 'pages.edit', params: { id: item.id } }">
+                    {{ item.title }}
                   </router-link>
                 </td>
-                <td>{{ page.is_public ? 'Да' : 'Нет' }}</td>
-                <td>{{ page.created_at }}</td>
-                <td>{{ page.updated_at }}</td>
+                <td>{{ item.is_public ? 'Да' : 'Нет' }}</td>
+                <td>{{ item.created_at }}</td>
+                <td>{{ item.updated_at }}</td>
                 <td>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="error" fab x-small v-bind="attrs" v-on="on" @click="del(page.id)">
+                      <v-btn color="error" fab x-small v-bind="attrs" v-on="on" @click="del(item.id)">
                         <v-icon>mdi-delete</v-icon>
                       </v-btn>
                     </template>
@@ -61,7 +66,7 @@
       <v-card-actions v-if="pages.total && pages.total > pages.per_page">
         <div class="text-center w-100">
           <v-pagination
-            v-model="query.page"
+            v-model="page"
             :length="pages.last_page"
             :total-visible="11"
             circle
@@ -83,9 +88,8 @@ export default {
   data() {
     return {
       loading: false,
-      query: {
-        page: 1
-      },
+      query: '',
+      page: 1,
       pages: []
     }
   },
@@ -95,11 +99,16 @@ export default {
   methods: {
     getPages() {
       this.loading = true
-      index('pages', { params: { page: this.query.page }}).then((res) => {
+      index('pages', { params: { page: this.page, query: this.query }}).then((res) => {
         this.pages = res.data.pages || []
       }).finally(() => {
         this.loading = false
       })
+    },
+    reset() {
+      this.query = ''
+      this.page = 1
+      this.getPages()
     },
     del(id) {
       this.$confirm('Вы уверены что хотите удалить страницу?').then((e) => {

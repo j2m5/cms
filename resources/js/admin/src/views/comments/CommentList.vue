@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-card style="margin-bottom: 10px;">
+      <v-container>
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getComments" @click:clear="reset" />
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title class="headline">
         Комментарии
@@ -61,7 +66,7 @@
       <v-card-actions v-if="comments.total && comments.total > comments.per_page">
         <div class="text-center w-100">
           <v-pagination
-            v-model="query.page"
+            v-model="page"
             :length="comments.last_page"
             :total-visible="11"
             circle
@@ -85,9 +90,8 @@ export default {
   data() {
     return {
       loading: false,
-      query: {
-        page: 1
-      },
+      query: '',
+      page: 1,
       comments: []
     }
   },
@@ -97,11 +101,16 @@ export default {
   methods: {
     getComments() {
       this.loading = true
-      index('comments', { params: { page: this.query.page }}).then((res) => {
+      index('comments', { params: { page: this.page, query: this.query }}).then((res) => {
         this.comments = res.data.comments || []
       }).finally(() => {
         this.loading = false
       })
+    },
+    reset() {
+      this.query = ''
+      this.page = 1
+      this.getComments()
     },
     del(id) {
       this.$confirm('Вы уверены что хотите удалить комментарий? (также будут удалены все ответы на него)').then((e) => {

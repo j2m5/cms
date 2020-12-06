@@ -1,7 +1,9 @@
 <template>
   <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" src="/dist/assets/bg.jpg" app dark>
     <v-app-bar-nav-icon @click="updateDrawer" />
-    <v-toolbar-title>{{ siteName }}</v-toolbar-title>
+    <v-toolbar-title style="cursor: pointer;" @click="openMain">
+      {{ siteName }}
+    </v-toolbar-title>
   </v-app-bar>
 </template>
 
@@ -28,6 +30,9 @@ export default {
   methods: {
     updateDrawer() {
       this.$store.commit('updateDrawer', this.setDrawer = !this.setDrawer)
+    },
+    openMain() {
+      window.open('/')
     }
   }
 }

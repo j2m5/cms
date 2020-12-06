@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-card style="margin-bottom: 10px;">
+      <v-container>
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getUsers" @click:clear="reset" />
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title class="headline">
         Пользователи
@@ -65,7 +70,7 @@
       <v-card-actions v-if="users.total && users.total > users.per_page">
         <div class="text-center w-100">
           <v-pagination
-            v-model="query.page"
+            v-model="page"
             :length="users.last_page"
             :total-visible="11"
             circle
@@ -89,9 +94,8 @@ export default {
   data() {
     return {
       loading: false,
-      query: {
-        page: 1
-      },
+      query: '',
+      page: 1,
       users: []
     }
   },
@@ -101,11 +105,16 @@ export default {
   methods: {
     getUsers() {
       this.loading = true
-      index('users', { params: { page: this.query.page }}).then((res) => {
+      index('users', { params: { page: this.page, query: this.query }}).then((res) => {
         this.users = res.data.users || []
       }).finally(() => {
         this.loading = false
       })
+    },
+    reset() {
+      this.query = ''
+      this.page = 1
+      this.getUsers()
     },
     ban(id, action) {
       this.$confirm('Вы уверены что хотите ' + action + ' пользователя?').then((e) => {
