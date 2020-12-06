@@ -90,4 +90,12 @@ class UserController extends BaseController
         $user->update(['avatar' => $avatar]);
         return response()->json(['success' => 'Аватар успешно загружен', 'newAvatar' => $avatar ]);
     }
+
+    public function resetAvatar($id)
+    {
+        $user = $this->userRepository->getOne($id);
+        $default = 'uploads/avatars/avatar.jpg';
+        $user->update(['avatar' => $default]);
+        return response()->json(['success' => 'Установлен аватар по умолчанию', 'newAvatar' => $default]);
+    }
 }

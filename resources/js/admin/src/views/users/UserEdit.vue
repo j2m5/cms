@@ -34,6 +34,9 @@
           <v-btn color="primary" rounded @click="generatePassword">
             Сгенерировать пароль
           </v-btn>
+          <v-btn color="primary" rounded @click="resetAvatar">
+            Установить аватар по умолчанию
+          </v-btn>
           <v-btn v-if="authUser.id !== form.id" color="error" rounded @click="del">
             Удалить пользователя
           </v-btn>
@@ -47,7 +50,7 @@
 </template>
 
 <script>
-import { edit, update, destroy, postRequest } from '../../api/api'
+import { edit, update, destroy, postRequest, patchRequest } from '../../api/api'
 import { randomStr } from './helpers'
 import showErrors from '../../mixins/showErrors'
 export default {
@@ -126,11 +129,22 @@ export default {
           headers: { 'Content-Type': 'multipart/form-data' }
         }).then((res) => {
           this.$toast.success(res.data.success)
-          this.$store.commit('updateUserAvatar', res.data.newAvatar)
+          if (this.$store.getters.user.id === this.form.id) {
+            this.$store.commit('updateUserAvatar', res.data.newAvatar)
+          }
           this.avatar = null
           this.getData()
         })
       }
+    },
+    resetAvatar() {
+      patchRequest('users/' + this.form.id + '/reset').then((res) => {
+        this.$toast.success(res.data.success)
+        if (this.$store.getters.user.id === this.form.id) {
+          this.$store.commit('updateUserAvatar', res.data.newAvatar)
+        }
+        this.getData()
+      })
     }
   }
 }

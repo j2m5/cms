@@ -55,4 +55,5 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Api\Admin', 'middleware' => 
     Route::patch('/settings/{id}', 'SettingController@updateSiteSettings')->name('settings.update.settings');
     Route::patch('/users/{id}/ban', 'UserController@ban')->name('admin.user.ban');
     Route::post('/users/{id}/upload', 'UserController@uploadAvatar')->name('admin.user.upload');
+    Route::patch('/users/{id}/reset', 'UserController@resetAvatar')->name('admin.user.avatar.reset');
 });
