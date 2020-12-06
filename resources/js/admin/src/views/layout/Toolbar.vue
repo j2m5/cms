@@ -4,6 +4,11 @@
     <v-toolbar-title style="cursor: pointer;" @click="openMain">
       {{ siteName }}
     </v-toolbar-title>
+    <v-spacer />
+    <v-avatar>
+      <img :src="siteUrl + '/storage/' + $store.getters.user.avatar" alt="">
+    </v-avatar>
+    <span style="margin-left: 10px;">{{ $store.getters.user.login }}</span>
   </v-app-bar>
 </template>
 
