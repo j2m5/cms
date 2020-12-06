@@ -90,6 +90,9 @@ const store = new Vuex.Store({
     },
     getUser(state, { user }) {
       state.user = user
+    },
+    updateUserAvatar(state, payload) {
+      state.user.avatar = payload
     }
   }
 })

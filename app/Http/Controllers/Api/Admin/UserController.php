@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends BaseController
 {
@@ -80,5 +81,13 @@ class UserController extends BaseController
             $message = 'Пользователь разбанен';
         }
         return response()->json(['success' => $message], 200);
+    }
+
+    public function uploadAvatar(Request $request, $id)
+    {
+        $user = $this->userRepository->getOne($id);
+        $avatar = Storage::disk('public')->putFile('uploads/avatars', $request->file('avatar'));
+        $user->update(['avatar' => $avatar]);
+        return response()->json(['success' => 'Аватар успешно загружен', 'newAvatar' => $avatar ]);
     }
 }

@@ -5,6 +5,17 @@
         Редактировать пользователя
       </v-card-title>
       <v-card-text>
+        <div style="margin-bottom: 10px;">
+          <v-avatar size="100" tile>
+            <img :src="$store.getters.siteUrl + '/storage/' + form.avatar" :alt="form.login">
+          </v-avatar>
+          <v-file-input
+            v-model="avatar"
+            accept="image/*"
+            label="Загрузить аватар"
+            @change="uploadAvatar"
+          />
+        </div>
         <form @submit.prevent="save">
           <v-text-field v-model="form.login" label="Логин пользователя" />
           <v-text-field v-model="form.name" label="Имя пользователя" />
@@ -36,7 +47,7 @@
 </template>
 
 <script>
-import { edit, update, destroy } from '../../api/api'
+import { edit, update, destroy, postRequest } from '../../api/api'
 import { randomStr } from './helpers'
 import showErrors from '../../mixins/showErrors'
 export default {
@@ -47,8 +58,10 @@ export default {
       loading: false,
       roles: [],
       password: null,
+      avatar: null,
       form: {
         id: 0,
+        avatar: null,
         login: null,
         name: null,
         email: null,
@@ -104,6 +117,18 @@ export default {
     },
     generatePassword() {
       this.password = randomStr(16)
+    },
+    uploadAvatar() {
+      const form = new FormData()
+      form.append('avatar', this.avatar)
+      postRequest('users/' + this.form.id + '/upload', form, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }).then((res) => {
+        this.$toast.success(res.data.success)
+        this.$store.commit('updateUserAvatar', res.data.newAvatar)
+        this.avatar = null
+        this.getData()
+      })
     }
   }
 }
