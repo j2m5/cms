@@ -37,7 +37,6 @@
 
 <script>
 import { destroy } from '../../../api/api'
-import config from '../../../api/config'
 import draggable from 'vuedraggable'
 const MenuItemEdit = () => import('../components/MenuItemEdit')
 export default {
@@ -61,7 +60,7 @@ export default {
     return {
       visible: false,
       currentItem: {},
-      siteUrl: config.siteUrl
+      siteUrl: this.$store.getters.siteUrl
     }
   },
   methods: {

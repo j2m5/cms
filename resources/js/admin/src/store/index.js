@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     drawer: true,
+    siteUrl: '',
     siteName: '',
     siteLogo: '',
     user: {}
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
   getters: {
     drawer(state) {
       return state.drawer
+    },
+    siteUrl(state) {
+      return state.siteUrl
     },
     siteName(state) {
       return state.siteName
@@ -26,6 +30,14 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    updateSiteUrl({ commit }, payload) {
+      commit('updateSiteUrl', payload)
+    },
+    getSiteUrl({ commit }) {
+      getRequest('site-url').then((res) => {
+        commit('getSiteUrl', { url: res.data.url })
+      })
+    },
     updateSiteName({ commit }, payload) {
       commit('updateSiteName', payload)
     },
@@ -54,6 +66,12 @@ const store = new Vuex.Store({
   mutations: {
     updateDrawer(state, payload) {
       state.drawer = payload
+    },
+    updateSiteUrl(state, payload) {
+      state.siteUrl = payload
+    },
+    getSiteUrl(state, { url }) {
+      state.siteUrl = url
     },
     updateSiteName(state, payload) {
       state.siteName = payload

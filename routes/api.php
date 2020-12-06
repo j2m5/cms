@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'middleware' => ['auth:api']], function() {
+    Route::get('/site-url', 'AdminController@getSiteUrl');
     Route::get('/site-name', 'AdminController@getSiteName');
     Route::get('/site-logo', 'AdminController@getSiteLogo');
     Route::get('/auth-user', 'AdminController@getAuthUser');

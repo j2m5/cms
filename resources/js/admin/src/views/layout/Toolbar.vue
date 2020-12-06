@@ -6,14 +6,13 @@
     </v-toolbar-title>
     <v-spacer />
     <v-avatar>
-      <img :src="siteUrl + '/storage/' + $store.getters.user.avatar" alt="">
+      <img :src="siteUrl + '/storage/' + $store.getters.user.avatar" :alt="$store.getters.user.login">
     </v-avatar>
     <span style="margin-left: 10px;">{{ $store.getters.user.login }}</span>
   </v-app-bar>
 </template>
 
 <script>
-import config from '../../api/config'
 export default {
   name: 'Toolbar',
   data() {
@@ -23,7 +22,7 @@ export default {
   },
   computed: {
     siteUrl() {
-      return config.siteUrl
+      return this.$store.getters.siteUrl
     },
     siteName() {
       return this.$store.getters.siteName
@@ -31,6 +30,7 @@ export default {
   },
   created() {
     this.$store.dispatch('getSiteName')
+    this.$store.dispatch('getSiteUrl')
   },
   methods: {
     updateDrawer() {

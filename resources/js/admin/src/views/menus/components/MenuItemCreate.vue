@@ -35,7 +35,6 @@
 
 <script>
 import { store } from '../../../api/api'
-import config from '../../../api/config'
 import showErrors from '../../../mixins/showErrors'
 const MenuItemTypes = () => import('../components/MenuItemTypes')
 const MenuItemAttribute = () => import('../components/MenuItemAttribute')
@@ -68,7 +67,7 @@ export default {
   data() {
     return {
       setVisible: false,
-      siteUrl: config.siteUrl,
+      siteUrl: this.$store.getters.siteUrl,
       form: {
         label: '',
         url: '',

@@ -155,7 +155,7 @@ class DatabaseSeeder extends Seeder
             [
                 'slug' => 'pages',
                 'name' => 'Страницы',
-                'icon' => 'fas fa-copy',
+                'icon' => 'mdi-book-open-page-variant',
                 'color' => 'bg-info',
                 'created_at' => now(),
                 'updated_at' => now()
@@ -163,7 +163,7 @@ class DatabaseSeeder extends Seeder
             [
                 'slug' => 'posts',
                 'name' => 'Записи',
-                'icon' => 'fas fa-pencil-alt',
+                'icon' => 'mdi-pencil',
                 'color' => 'bg-success',
                 'created_at' => now(),
                 'updated_at' => now()
@@ -171,7 +171,7 @@ class DatabaseSeeder extends Seeder
             [
                 'slug' => 'categories',
                 'name' => 'Разделы',
-                'icon' => 'fas fa-folder-open',
+                'icon' => 'mdi-folder',
                 'color' => 'bg-warning',
                 'created_at' => now(),
                 'updated_at' => now()
@@ -179,7 +179,7 @@ class DatabaseSeeder extends Seeder
             [
                 'slug' => 'links',
                 'name' => 'Ссылки',
-                'icon' => 'fas fa-link',
+                'icon' => 'mdi-link-variant',
                 'color' => 'bg-danger',
                 'created_at' => now(),
                 'updated_at' => now()

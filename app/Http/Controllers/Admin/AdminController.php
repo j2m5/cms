@@ -12,9 +12,14 @@ class AdminController extends Controller
         return view('admin.admin');
     }
 
+    public function getSiteUrl()
+    {
+        return response()->json(['url' => config('app.url')]);
+    }
+
     public function getSiteName()
     {
-        return response()->json(['name' => siteName()], 200);
+        return response()->json(['name' => siteName()]);
     }
 
     public function getSiteLogo()
@@ -24,6 +29,6 @@ class AdminController extends Controller
 
     public function getAuthUser()
     {
-        return response()->json(['user' => auth()->user()], 200);
+        return response()->json(['user' => auth()->user()]);
     }
 }
