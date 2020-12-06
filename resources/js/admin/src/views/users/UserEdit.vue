@@ -134,6 +134,9 @@ export default {
           }
           this.avatar = null
           this.getData()
+        }).catch((err) => {
+          this.showErrors(err)
+          this.avatar = null
         })
       }
     },

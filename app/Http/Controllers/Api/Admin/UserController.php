@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Http\Requests\UploadAvatarRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
@@ -83,7 +84,7 @@ class UserController extends BaseController
         return response()->json(['success' => $message], 200);
     }
 
-    public function uploadAvatar(Request $request, $id)
+    public function uploadAvatar(UploadAvatarRequest $request, $id)
     {
         $user = $this->userRepository->getOne($id);
         $avatar = Storage::disk('public')->putFile('uploads/avatars', $request->file('avatar'));
