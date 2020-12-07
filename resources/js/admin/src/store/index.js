@@ -93,6 +93,9 @@ const store = new Vuex.Store({
     },
     updateUserAvatar(state, payload) {
       state.user.avatar = payload
+    },
+    updateUserLogin(state, payload) {
+      state.user.login = payload
     }
   }
 })

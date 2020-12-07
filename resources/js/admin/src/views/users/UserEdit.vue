@@ -100,7 +100,9 @@ export default {
     save() {
       update('users', this.$route.params.id, this.form).then((res) => {
         this.$toast.success(res.data.success)
-        this.$store.dispatch('updateUser', this.form)
+        if (this.$store.getters.user.id === this.form.id) {
+          this.$store.commit('updateUserLogin', this.form.login)
+        }
         this.getData()
       }).catch((err) => {
         this.showErrors(err)

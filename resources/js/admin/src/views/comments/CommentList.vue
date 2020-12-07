@@ -2,7 +2,7 @@
   <v-container>
     <v-card style="margin-bottom: 10px;">
       <v-container>
-        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getComments" @click:clear="reset" />
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getComments(true)" @click:clear="reset" />
       </v-container>
     </v-card>
     <v-card>
@@ -99,7 +99,8 @@ export default {
     this.getComments()
   },
   methods: {
-    getComments() {
+    getComments(firstPage = null) {
+      if (firstPage === true) this.page = 1
       this.loading = true
       index('comments', { params: { page: this.page, query: this.query }}).then((res) => {
         this.comments = res.data.comments || []

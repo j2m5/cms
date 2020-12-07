@@ -2,7 +2,7 @@
   <v-container>
     <v-card style="margin-bottom: 10px;">
       <v-container>
-        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getCategories" @click:clear="reset" />
+        <v-text-field v-model="query" label="Введите поисковый запрос и нажмите Enter" clearable @keyup.enter="getCategories(true)" @click:clear="reset" />
       </v-container>
     </v-card>
     <v-card>
@@ -93,7 +93,8 @@ export default {
     this.getCategories()
   },
   methods: {
-    getCategories() {
+    getCategories(firstPage = null) {
+      if (firstPage === true) this.page = 1
       this.loading = true
       index('categories', { params: { page: this.page, query: this.query }}).then((res) => {
         this.categories = res.data.categories || []
