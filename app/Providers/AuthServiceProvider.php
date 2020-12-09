@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Models\BlogPost;
-use App\Models\Event;
 use App\Models\Page;
 use App\Models\Setting;
 use App\Models\Tag;
@@ -14,7 +13,6 @@ use App\Models\User;
 use App\Policies\BlogCategoryPolicy;
 use App\Policies\BlogCommentPolicy;
 use App\Policies\BlogPostPolicy;
-use App\Policies\EventPolicy;
 use App\Policies\PagePolicy;
 use App\Policies\SettingPolicy;
 use App\Policies\TagPolicy;
@@ -37,7 +35,6 @@ class AuthServiceProvider extends ServiceProvider
         Tag::class => TagPolicy::class,
         User::class => UserPolicy::class,
         Setting::class => SettingPolicy::class,
-        Event::class => EventPolicy::class,
         Ticket::class => TicketPolicy::class,
         Page::class => PagePolicy::class
     ];
