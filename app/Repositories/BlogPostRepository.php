@@ -16,7 +16,7 @@ class BlogPostRepository extends BaseRepository
 
     public function getRecentPosts()
     {
-        $columns = ['id', 'user_id', 'title', 'slug', 'created_at'];
+        $columns = ['id', 'user_id', 'title', 'slug', 'image', 'created_at'];
         $posts = $this->startQuery()
             ->select($columns)
             ->withCount('comments')

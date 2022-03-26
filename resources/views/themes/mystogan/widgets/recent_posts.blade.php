@@ -6,7 +6,7 @@
                 <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
             </div>
             <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url({{ asset('storage').'/'.$post->image }});"></a>
                 <div class="text">
                     <h3 class="heading"><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
                     <div class="meta">

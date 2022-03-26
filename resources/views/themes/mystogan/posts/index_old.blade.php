@@ -11,7 +11,7 @@
         <div class="row pt-md-4">
             <div class="col-md-12">
                 <div class="blog-entry ftco-animate d-md-flex">
-                    <a href="{{ route('posts.show', $post->slug) }}" class="img img-2" style="background-image: url(images/image_1.jpg);"></a>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="img img-2" style="background-image: url({{ asset('storage').'/'.$post->image }});"></a>
                     <div class="text text-2 pl-md-4">
                         <h3 class="mb-2"><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
                         <div class="meta-wrap">
