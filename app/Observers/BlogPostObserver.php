@@ -22,7 +22,6 @@ class BlogPostObserver
         else {
             if (isExistsPostSlug($blogPost->slug)) $blogPost->slug = $blogPost->slug.'-'.Str::random(3);
         }
-        if (!$blogPost->created_at) $blogPost->created_at = now();
     }
 
     /**
@@ -51,7 +50,6 @@ class BlogPostObserver
         else {
             if (isExistsPostSlug($blogPost->slug) && $blogPost->isDirty('slug')) $blogPost->slug = $blogPost->slug.'-'.Str::random(3);
         }
-        if (!$blogPost->created_at) $blogPost->created_at = now();
     }
 
     /**
