@@ -28,6 +28,7 @@
           <v-datetime-picker
             v-model="form.created_at"
             label="Выберите время"
+            date-format="yyyy-MM-dd"
             time-format="HH:mm:ss"
             clear-text="Очистить"
             ok-text="Выбрать"
@@ -52,6 +53,16 @@
           <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
           <v-text-field v-model="form.md" label="Мета-описание" />
           <v-text-field v-model="form.mk" label="Ключевые слова" />
+          <v-file-input
+            v-model="image"
+            show-size
+            accept="image/*"
+            label="Загрузить превью"
+            @change="uploadPreviewImage"
+          />
+          <div v-if="form.image">
+            <v-img :src="$store.getters.siteUrl + '/storage/' + form.image" max-height="150" max-width="250" />
+          </div>
           <div>
             <v-checkbox v-model="form.is_public" label="Опубликовать запись" class="d-inline-block" hide-details />
           </div>
@@ -71,7 +82,7 @@
 </template>
 
 <script>
-import { edit, update } from '../../api/api'
+import { edit, postRequest, update } from '../../api/api'
 import CKEditor from 'ckeditor4-vue'
 import ckeditor from '../../api/ckeditor'
 import showErrors from '../../mixins/showErrors'
@@ -87,7 +98,9 @@ export default {
       loading: false,
       categories: [],
       tags: [],
+      image: null,
       form: {
+        id: 0,
         title: null,
         slug: null,
         category_id: null,
@@ -97,6 +110,7 @@ export default {
         content: null,
         md: null,
         mk: null,
+        image: null,
         is_public: false,
         is_discuss: true
       },
@@ -115,6 +129,7 @@ export default {
         this.form.tags = res.data.relatedTags || null
         this.categories = res.data.categories
         this.tags = res.data.tags
+        this.form.image = res.data.post.image
       }).finally(() => {
         this.loading = false
       })
@@ -125,6 +140,22 @@ export default {
       }).catch((err) => {
         this.showErrors(err)
       })
+    },
+    uploadPreviewImage() {
+      if (this.image) {
+        const form = new FormData()
+        form.append('image', this.image)
+        postRequest('posts/upload', form, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }).then((res) => {
+          this.$toast.success(res.data.success)
+          this.form.image = res.data.newImage
+          this.image = null
+        }).catch((err) => {
+          this.showErrors(err)
+          this.image = null
+        })
+      }
     }
   }
 }

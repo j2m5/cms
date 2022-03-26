@@ -41,6 +41,7 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Api\Admin', 'middleware' => 
     Route::get('/trash', 'TrashController@index')->name('trash.index');
     Route::post('/categories/{id}/restore', 'BlogCategoryController@restore')->name('categories.restore');
     Route::post('/posts/{id}/restore', 'BlogPostController@restore')->name('posts.restore');
+    Route::post('/posts/upload', 'BlogPostController@uploadPreviewImage')->name('admin.posts.upload');
     Route::post('/pages/{id}/restore', 'PageController@restore')->name('pages.restore');
     Route::post('/comments/{id}/restore', 'BlogCommentController@restore')->name('comments.restore');
     Route::delete('/categories/{id}/erase', 'BlogCategoryController@forceDelete')->name('categories.erase');

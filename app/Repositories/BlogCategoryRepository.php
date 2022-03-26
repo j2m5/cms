@@ -18,6 +18,7 @@ class BlogCategoryRepository extends BaseRepository
         $columns = ['id', 'title'];
         $categories = $this->startQuery()
             ->select($columns)
+            ->withCount('posts')
             ->get();
         return $categories;
     }

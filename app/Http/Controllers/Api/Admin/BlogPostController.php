@@ -7,6 +7,7 @@ use App\Models\BlogPost;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class BlogPostController extends BaseController
 {
@@ -86,6 +87,12 @@ class BlogPostController extends BaseController
         if ($post->category->deleted_at) return response()->json(['errors' => 'Запись находится в удаленном разделе "'.$post->category->title.'" и не может быть восстановлена'], 423);
         $post->restore($id);
         return response()->json(['success' => 'Запись и все содержимое восстановлены'], 200);
+    }
+
+    public function uploadPreviewImage(Request $request)
+    {
+        $image = Storage::disk('public')->putFile('uploads/posts', $request->file('image'));
+        return response()->json(['success' => 'Превью успешно загружено', 'newImage' => $image ]);
     }
 
     private function syncTags($post, $tags)

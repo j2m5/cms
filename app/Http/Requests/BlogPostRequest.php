@@ -29,6 +29,7 @@ class BlogPostRequest extends FormRequest
             'category_id' => 'required|integer|min:1',
             'excerpt' => 'required|string|min:2',
             'content' => 'required|string|min:2',
+            'created_at' => 'required',
             'md' => 'max:255',
             'mk' => 'max:255',
         ];
@@ -48,6 +49,7 @@ class BlogPostRequest extends FormRequest
             'excerpt.min' => 'Слишком короткое превью (минимум :min символа(ов))',
             'content.required' => 'Запись не может быть пустой',
             'content.min' => 'Слишком короткая запись (минимум :min символа(ов))',
+            'created_at.required' => 'Не указаны дата и время',
             'md.max' => 'Слишком длинное мета-описание (максимум :max символа(ов))',
             'mk.max' => 'Слишком длинные ключевые слова (максимум :max символа(ов))'
         ];

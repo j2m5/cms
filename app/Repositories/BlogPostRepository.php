@@ -16,9 +16,11 @@ class BlogPostRepository extends BaseRepository
 
     public function getRecentPosts()
     {
-        $columns = ['id', 'title', 'slug', 'created_at'];
+        $columns = ['id', 'user_id', 'title', 'slug', 'created_at'];
         $posts = $this->startQuery()
             ->select($columns)
+            ->withCount('comments')
+            ->with('user:id,name')
             ->latest()
             ->take(10)
             ->get();
@@ -33,7 +35,7 @@ class BlogPostRepository extends BaseRepository
             ->where('is_public', 1)
             ->where('created_at', '<=', now())
             ->latest()
-            ->with('category:id,title', 'user:id,name', 'tags:tag_id,name,slug', 'comments:id,post_id')
+            ->with('category:id,title', 'user:id,name,avatar', 'tags:tag_id,name,slug', 'comments:id,post_id')
             ->paginate(countPostsOnPage());
         return $posts;
     }
@@ -94,7 +96,7 @@ class BlogPostRepository extends BaseRepository
 
     public function getAdminEdit($id)
     {
-        $columns = ['id', 'category_id', 'user_id', 'title', 'slug', 'excerpt', 'content', 'md', 'mk', 'is_public', 'is_discuss', 'created_at'];
+        $columns = ['id', 'category_id', 'user_id', 'title', 'slug', 'image', 'excerpt', 'content', 'md', 'mk', 'is_public', 'is_discuss', 'created_at'];
         $post = $this->startQuery()
             ->select($columns)
             ->where('id', $id)
