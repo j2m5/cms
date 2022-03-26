@@ -34,4 +34,3 @@
         {{ $posts->links('themes.'.currentTheme().'.layouts.pagination') }}
     @endif
 @endsection
-
