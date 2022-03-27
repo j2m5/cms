@@ -15,7 +15,7 @@
                     <h3 class="mb-4"><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
                     <p class="mb-4">{!! $post->excerpt !!}</p>
                     <div class="author mb-4 d-flex align-items-center">
-                        <a href="#" class="img" style="background-image: url({{ asset('storage').'/'.$post->user->avatar }});"></a>
+                        <a href="{{ route('posts.show', $post->slug) }}" class="img" style="background-image: url({{ asset('storage').'/'.$post->user->avatar }});"></a>
                         <div class="ml-3 info">
                             <span>Опубликовал</span>
                             <h3><a href="#">{{ $post->user->name }}</a>, <span>{{ \Illuminate\Support\Carbon::parse($post->created_at)->format('M d, Y') }}</span></h3>
@@ -28,7 +28,7 @@
                             </p>
                         </div>
                         <div class="half">
-                            <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Подробнее</a></p>
+                            <p><a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Подробнее</a></p>
                         </div>
                     </div>
                 </div>
