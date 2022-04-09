@@ -26,11 +26,16 @@
             </v-icon>
           </v-datetime-picker>
           <label>Содержимое страницы</label>
-          <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
+          <editor
+            v-model="form.content"
+            :init="tinymce"
+            api-key="3nqh2ffz2qeynj2rg4jnbqk1cvf14ppmrkrqjfxuq5xhq115"
+            class="mb-5"
+          />
           <v-text-field v-model="form.md" label="Мета-описание" />
           <v-text-field v-model="form.mk" label="Ключевые слова" />
           <div>
-            <v-checkbox v-model="form.is_public" label="Опубликовать запись" class="d-inline-block" hide-details />
+            <v-checkbox v-model="form.is_public" label="Опубликовать страницу" class="d-inline-block" hide-details />
           </div>
           <v-btn type="submit" color="primary" class="mt-3" rounded>
             Сохранить
@@ -46,14 +51,14 @@
 
 <script>
 import { edit, update } from '../../api/api'
-import CKEditor from 'ckeditor4-vue'
-import ckeditor from '../../api/ckeditor'
+import Editor from '@tinymce/tinymce-vue'
+import tinymce from '../../api/tinymce'
 import showErrors from '../../mixins/showErrors'
 import dateTimeConfig from '../../api/datetimepicker'
 export default {
   name: 'PageEdit',
   components: {
-    ckeditor: CKEditor.component
+    'editor': Editor
   },
   mixins: [showErrors],
   data() {
@@ -68,7 +73,7 @@ export default {
         created_at: null,
         is_public: 0
       },
-      ckeditor,
+      tinymce,
       dateTimeConfig
     }
   },

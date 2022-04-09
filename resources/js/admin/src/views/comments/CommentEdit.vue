@@ -12,7 +12,12 @@
         </div>
         <form @submit.prevent="save">
           <label>Содержимое страницы</label>
-          <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
+          <editor
+            v-model="form.content"
+            :init="tinymce"
+            api-key="3nqh2ffz2qeynj2rg4jnbqk1cvf14ppmrkrqjfxuq5xhq115"
+            class="mb-5"
+          />
           <v-btn type="submit" color="primary" class="mt-3" rounded>
             Сохранить
           </v-btn>
@@ -27,13 +32,13 @@
 
 <script>
 import { edit, update } from '../../api/api'
-import CKEditor from 'ckeditor4-vue'
-import ckeditor from '../../api/ckeditor'
+import Editor from '@tinymce/tinymce-vue'
+import tinymce from '../../api/tinymce'
 import showErrors from '../../mixins/showErrors'
 export default {
   name: 'CommentEdit',
   components: {
-    ckeditor: CKEditor.component
+    'editor': Editor
   },
   mixins: [showErrors],
   data() {
@@ -43,7 +48,7 @@ export default {
         user: {},
         content: null
       },
-      ckeditor
+      tinymce
     }
   },
   created() {

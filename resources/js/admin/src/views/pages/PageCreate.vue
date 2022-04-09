@@ -26,11 +26,16 @@
             </v-icon>
           </v-datetime-picker>
           <label>Содержимое страницы</label>
-          <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
+          <editor
+            v-model="form.content"
+            :init="tinymce"
+            api-key="3nqh2ffz2qeynj2rg4jnbqk1cvf14ppmrkrqjfxuq5xhq115"
+            class="mb-5"
+          />
           <v-text-field v-model="form.md" label="Мета-описание" />
           <v-text-field v-model="form.mk" label="Ключевые слова" />
           <div>
-            <v-checkbox v-model="form.is_public" label="Опубликовать запись" class="d-inline-block" hide-details />
+            <v-checkbox v-model="form.is_public" label="Опубликовать страницу" class="d-inline-block" hide-details />
           </div>
           <v-btn type="submit" color="primary" class="mt-3" rounded>
             Сохранить
@@ -45,15 +50,15 @@
 </template>
 
 <script>
-import { store } from '../../api/api'
-import CKEditor from 'ckeditor4-vue'
-import ckeditor from '../../api/ckeditor'
+import { create, store } from '../../api/api'
+import Editor from '@tinymce/tinymce-vue'
+import tinymce from '../../api/tinymce'
 import showErrors from '../../mixins/showErrors'
 import dateTimeConfig from '../../api/datetimepicker'
 export default {
   name: 'PageCreate',
   components: {
-    ckeditor: CKEditor.component
+    'editor': Editor
   },
   mixins: [showErrors],
   data() {
@@ -68,16 +73,22 @@ export default {
         created_at: null,
         is_public: 0
       },
-      ckeditor,
+      tinymce,
       dateTimeConfig
     }
   },
   created() {
-    setTimeout(() => {
-      this.loading = false
-    }, 300)
+    this.getData()
   },
   methods: {
+    getData() {
+      this.loading = true
+      create('pages').then((res) => {
+        this.form.user_id = res.data.user
+      }).finally(() => {
+        this.loading = false
+      })
+    },
     save() {
       store('pages', this.form).then((res) => {
         this.$toast.success(res.data.success)

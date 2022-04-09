@@ -29,7 +29,6 @@ class PageObserver
             $page->setAttribute('created_at', $page->getAttribute('created_at'));
         }
 
-        //$page->setAttribute('user_id', auth()->id());
     }
 
     /**

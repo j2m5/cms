@@ -48,9 +48,19 @@
             <span>Можно установить дату и время на будущее, в таком случае запись появится на сайте в установленное время</span>
           </div>
           <label>Короткая запись</label>
-          <ckeditor v-model="form.excerpt" :config="ckeditor" class="mb-5" />
+          <editor
+            v-model="form.excerpt"
+            :init="tinymce"
+            api-key="3nqh2ffz2qeynj2rg4jnbqk1cvf14ppmrkrqjfxuq5xhq115"
+            class="mb-5"
+          />
           <label>Полная запись</label>
-          <ckeditor v-model="form.content" :config="ckeditor" class="mb-5" />
+          <editor
+            v-model="form.content"
+            :init="tinymce"
+            api-key="3nqh2ffz2qeynj2rg4jnbqk1cvf14ppmrkrqjfxuq5xhq115"
+            class="mb-5"
+          />
           <v-text-field v-model="form.md" label="Мета-описание" />
           <v-text-field v-model="form.mk" label="Ключевые слова" />
           <v-file-input
@@ -83,14 +93,14 @@
 
 <script>
 import { create, postRequest, store } from '../../api/api'
-import CKEditor from 'ckeditor4-vue'
-import ckeditor from '../../api/ckeditor'
+import Editor from '@tinymce/tinymce-vue'
+import tinymce from '../../api/tinymce'
 import showErrors from '../../mixins/showErrors'
 import dateTimeConfig from '../../api/datetimepicker'
 export default {
   name: 'PostCreate',
   components: {
-    ckeditor: CKEditor.component
+    'editor': Editor
   },
   mixins: [showErrors],
   data() {
@@ -114,7 +124,7 @@ export default {
         is_public: false,
         is_discuss: true
       },
-      ckeditor,
+      tinymce,
       dateTimeConfig
     }
   },

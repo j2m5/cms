@@ -24,7 +24,8 @@ class PageController extends BaseController
 
     public function create()
     {
-        //
+        $user = auth()->user()->id;
+        return response()->json(['user' => $user], 200);
     }
 
     public function store(PageRequest $request)

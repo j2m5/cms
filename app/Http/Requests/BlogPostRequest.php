@@ -29,7 +29,6 @@ class BlogPostRequest extends FormRequest
             'category_id' => 'required|integer|min:1',
             'excerpt' => 'required|string|min:2',
             'content' => 'required|string|min:2',
-            'created_at' => 'required',
             'md' => 'max:255',
             'mk' => 'max:255',
         ];

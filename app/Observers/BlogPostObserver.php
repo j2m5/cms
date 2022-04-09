@@ -22,6 +22,12 @@ class BlogPostObserver
         else {
             if (isExistsPostSlug($blogPost->slug)) $blogPost->slug = $blogPost->slug.'-'.Str::random(3);
         }
+
+        if (empty($blogPost->getAttribute('created_at'))) {
+            $blogPost->setAttribute('created_at', now());
+        } else {
+            $blogPost->setAttribute('created_at', $blogPost->getAttribute('created_at'));
+        }
     }
 
     /**
@@ -49,6 +55,14 @@ class BlogPostObserver
         }
         else {
             if (isExistsPostSlug($blogPost->slug) && $blogPost->isDirty('slug')) $blogPost->slug = $blogPost->slug.'-'.Str::random(3);
+        }
+
+        if (empty($blogPost->getAttribute('created_at'))) {
+            $blogPost->setAttribute('created_at', now());
+        } else {
+            if ($blogPost->isDirty('created_at')) {
+                $blogPost->setAttribute('created_at', $blogPost->getAttribute('created_at'));
+            }
         }
     }
 

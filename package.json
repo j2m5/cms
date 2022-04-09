@@ -31,7 +31,9 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@tinymce/tinymce-vue": "^3.2.8",
         "axios": "^0.20.0",
+        "ckeditor-youtube-plugin": "^2.1.19",
         "ckeditor4-vue": "^1.0.1",
         "echarts": "^4.9.0",
         "v-charts": "^1.19.0",
